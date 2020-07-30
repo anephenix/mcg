@@ -1,0 +1,16 @@
+#!/usr/bin/env node
+
+const program = require('commander');
+
+const packageJson = require('../package.json');
+
+const mainAction = async ({ args }) => {
+	console.log(args);
+	const modelName = args[0];
+	// TODO - figure out how this passes params to the index.js file
+};
+
+program.version(packageJson.version).action(mainAction);
+
+// Run the command
+program.parse(process.argv);

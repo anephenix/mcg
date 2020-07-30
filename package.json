@@ -1,0 +1,33 @@
+{
+	"name": "@anephenix/mcg",
+	"version": "0.0.1",
+	"description": "Model Component Generator for Objection.js",
+	"main": "index.js",
+	"scripts": {
+		"lint": "npx eslint .",
+		"test": "NODE_ENV=test jest --runInBand --coverage",
+		"coveralls": "NODE_ENV=test jest --runInBand --coverage --coverageReporters=text-lcov | coveralls"
+	},
+	"keywords": [
+		"objection",
+		"model",
+		"generator"
+	],
+	"author": "Paul Jensen <paul@anephenix.com>",
+	"license": "MIT",
+	"devDependencies": {
+		"babel-eslint": "^10.1.0",
+		"coveralls": "^3.1.0",
+		"eslint": "^7.5.0",
+		"eslint-plugin-jest": "^23.19.0",
+		"husky": "^4.2.5",
+		"jest": "^26.1.0",
+		"npm-upgrade": "^2.0.4",
+		"prettier": "^2.0.5"
+	},
+	"dependencies": {
+		"commander": "^6.0.0",
+		"pluralize": "^8.0.0",
+		"to-case": "^2.0.0"
+	}
+}
