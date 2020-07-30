@@ -1,4 +1,13 @@
-describe('generateModelComponent', () => {
+// const mcg = require('../index');
+// const { unlink } = require('../lib/helpers');
+describe('main', () => {
+	// beforeAll(async () => {
+	// 	return await mcg('Post');
+	// 	// Make the call to create the code
+	// });
+
+	// afterAll(async () => {});
+
 	describe('when the models folder does not yet exist', () => {
 		it.todo('should create the models folder');
 	});
