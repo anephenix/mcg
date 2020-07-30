@@ -1,7 +1,7 @@
 # Model Component Generator
 
 [![npm version](https://badge.fury.io/js/%40anephenix%2Fmcg.svg)](https://badge.fury.io/js/%40anephenix%2Fmcg) [![CircleCI](https://circleci.com/gh/anephenix/mcg.svg?style=shield)](https://circleci.com/gh/anephenix/mcg)
-[![Coverage Status](https://coveralls.io/repos/github/anephenix/mcg/badge.svg?branch=master)](https://coveralls.io/github/anephenix/mcg?branch=master) [![Maintainability](https://api.codeclimate.com/v1/badges/KEY/maintainability)](https://codeclimate.com/github/anephenix/job-queue/maintainability)
+[![Coverage Status](https://coveralls.io/repos/github/anephenix/mcg/badge.svg?branch=master)](https://coveralls.io/github/anephenix/mcg?branch=master) [![Maintainability](https://api.codeclimate.com/v1/badges/3fabf6075ba1859d0b0e/maintainability)](https://codeclimate.com/github/anephenix/mcg/maintainability)
 
 A Node.js CLI and library for generating Models using Objection.js
 
