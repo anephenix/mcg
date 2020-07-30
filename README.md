@@ -27,7 +27,7 @@ npm i @anephenix/mcg
 You can use MCG via the command line:
 
 ```shell
-npx mcg Posts title:string description:text published:boolean --timestamps
+npx mcg Post title:string description:text published:boolean --timestamps
 ```
 
 This will do the following:
@@ -35,8 +35,21 @@ This will do the following:
 -   Create a folder called models, unless it already exists
 -   Create a model file called Post.js in the models folder
 -   Create a folder called migrations, unless it already exists
--   Generate a migration file to create the posts table with the
+-   Generate a migration file to create the posts table with the fileds title, description, and published, as well as created_at and updated_at timestamps.
+
+You can also use MCG programmatically, like this:
+
+```javascript
+const mcg = require('@anephenix/mcg');
+(async () => {
+	await mcg('Post');
+})();
+```
 
 ### License and Credits
 
-&copy;2020 Anephenix OÜ. Job Queue is licensed under the MIT license.
+&copy;2020 Anephenix OÜ. MCG is licensed under the MIT license.
+
+```
+
+```
