@@ -7,10 +7,10 @@ A Node.js CLI and library for generating Models using Objection.js
 
 ### Features
 
--   Create Objection.js models
--   Generate the test seed data file
--   Generate the test file
--   Generate the migration file for the model's database table
+-   Create the Objection.js model
+-   Create the migration file for the model's database table
+-   Create the test model file
+-   Create the test seed data file
 
 ### Dependencies
 
@@ -27,7 +27,7 @@ npm i @anephenix/mcg
 You can use MCG via the command line:
 
 ```shell
-npx mcg Post title:string description:text published:boolean --timestamps
+npx mcg Post
 ```
 
 This will do the following:
