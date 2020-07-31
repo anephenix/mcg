@@ -33,6 +33,15 @@ describe('main', () => {
 		assert(check.isDirectory());
 	};
 
+	const checkFileExistsAndContentIsExpected = async ({
+		filePath,
+		expectedContent,
+	}) => {
+		await checkFileExists(filePath);
+		const fileContent = await readFile(filePath);
+		assert.equal(fileContent, expectedContent);
+	};
+
 	describe('when the models folder does not yet exist', () => {
 		it('should create the models folder', async () => {
 			await checkDirectoryExists(['models']);
@@ -59,10 +68,11 @@ describe('main', () => {
 
 	it('should create the model file inside the models folder', async () => {
 		const filePath = path.join(rootDir, 'models', 'Post.js');
-		await checkFileExists(filePath);
-		const fileContent = await readFile(filePath);
 		const expectedContent = modelFileTemplate('Post');
-		assert.equal(fileContent, expectedContent);
+		await checkFileExistsAndContentIsExpected({
+			filePath,
+			expectedContent,
+		});
 	});
 
 	it('should create the migration file inside the migrations folder', async () => {
@@ -72,10 +82,11 @@ describe('main', () => {
 			'migrations',
 			`${timestamp}_create_posts_table.js`
 		);
-		await checkFileExists(filePath);
-		const fileContent = await readFile(filePath);
 		const expectedContent = migrationFileTemplate('posts');
-		assert.equal(fileContent, expectedContent);
+		await checkFileExistsAndContentIsExpected({
+			filePath,
+			expectedContent,
+		});
 	});
 
 	it('should create the test model file inside the __tests__/models/ folder', async () => {
@@ -85,17 +96,19 @@ describe('main', () => {
 			'models',
 			'Post.test.js'
 		);
-		await checkFileExists(filePath);
-		const fileContent = await readFile(filePath);
 		const expectedContent = testModelFileTemplate('Post');
-		assert.equal(fileContent, expectedContent);
+		await checkFileExistsAndContentIsExpected({
+			filePath,
+			expectedContent,
+		});
 	});
 
 	it('should create the test seed model file inside the __tests__/data/ folder', async () => {
 		const filePath = path.join(rootDir, '__tests__', 'data', 'seedPost.js');
-		await checkFileExists(filePath);
-		const fileContent = await readFile(filePath);
 		const expectedContent = testSeedDataFileTemplate('Post');
-		assert.equal(fileContent, expectedContent);
+		await checkFileExistsAndContentIsExpected({
+			filePath,
+			expectedContent,
+		});
 	});
 });
