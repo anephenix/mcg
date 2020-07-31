@@ -15,35 +15,33 @@ describe('main', () => {
 		return await rmdir(rootDir, { recursive: true });
 	});
 
+	const checkDirectoryExists = async (directories) => {
+		const fullPath = path.join(rootDir, ...directories);
+		const check = await stat(fullPath);
+		assert(check.isDirectory());
+	};
+
 	describe('when the models folder does not yet exist', () => {
 		it('should create the models folder', async () => {
-			const modelsPath = path.join(rootDir, 'models');
-			const check = await stat(modelsPath);
-			assert(check.isDirectory());
+			await checkDirectoryExists(['models']);
 		});
 	});
 
 	describe('when the __tests__/models folder does not yet exist', () => {
 		it('should create the __tests__/models folder', async () => {
-			const testModelsPath = path.join(rootDir, '__tests__', 'models');
-			const check = await stat(testModelsPath);
-			assert(check.isDirectory());
+			await checkDirectoryExists(['__tests__', 'models']);
 		});
 	});
 
 	describe('when the __tests__/data folder does not yet exist', () => {
 		it('should create the __tests__/data folder', async () => {
-			const testDataPath = path.join(rootDir, '__tests__', 'data');
-			const check = await stat(testDataPath);
-			assert(check.isDirectory());
+			await checkDirectoryExists(['__tests__', 'data']);
 		});
 	});
 
 	describe('when the migration folder does not yet exist', () => {
 		it('should create the migrations folder', async () => {
-			const migrationsPath = path.join(rootDir, 'migrations');
-			const check = await stat(migrationsPath);
-			assert(check.isDirectory());
+			await checkDirectoryExists(['migrations']);
 		});
 	});
 
