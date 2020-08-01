@@ -6,7 +6,11 @@ const packageJson = require('../package.json');
 
 const mainAction = async ({ args }) => {
 	const modelName = args[0];
-	await main(modelName);
+	const filesCreated = await main(modelName);
+	console.log('Created files:');
+	filesCreated.forEach((fc) => {
+		console.log(fc);
+	});
 };
 
 program.version(packageJson.version).action(mainAction);

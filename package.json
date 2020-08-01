@@ -3,6 +3,7 @@
 	"version": "0.0.1",
 	"description": "Model Component Generator for Objection.js",
 	"main": "index.js",
+	"bin": "./bin/mcg",
 	"scripts": {
 		"lint": "npx eslint .",
 		"test": "NODE_ENV=test jest --runInBand --coverage",
