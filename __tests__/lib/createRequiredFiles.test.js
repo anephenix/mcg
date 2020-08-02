@@ -1,5 +1,11 @@
-const { getTimestamp } = require('../../lib/createRequiredFiles');
 const assert = require('assert');
+const path = require('path');
+const {
+	createModelFile,
+	getTimestamp,
+} = require('../../lib/createRequiredFiles');
+const { createFolderUnlessExists } = require('../../lib/createRequiredFolders');
+const { stat, rmdir, readFile } = require('../../lib/helpers');
 
 Object.defineProperty(Date.prototype, 'YYYYMMDDHHMMSS', {
 	value: function () {
@@ -27,7 +33,35 @@ describe('createRequiredFiles', () => {
 		});
 	});
 	describe('#createModelFile', () => {
-		it.todo('should create the model file for the model');
+		const rootDir = path.join(process.cwd(), 'testApp');
+
+		afterEach(async () => {
+			return await rmdir(rootDir, { recursive: true });
+		});
+
+		it('should create the model file for the model', async () => {
+			const modelName = 'Post';
+			const rootDir = path.join(process.cwd(), 'testApp');
+			await createFolderUnlessExists(rootDir);
+			await createFolderUnlessExists(path.join(rootDir, 'models'));
+			await createModelFile({ modelName, rootDir });
+			const expectedFilePath = path.join(rootDir, 'models', 'Post.js');
+			const exampleFilePath = path.join(
+				process.cwd(),
+				'__tests__',
+				'data',
+				'modelFileExample.test.js'
+			);
+			const fileCheck = await stat(expectedFilePath);
+			assert(fileCheck.isFile());
+			const fileContent = await readFile(expectedFilePath, {
+				encoding: 'utf8',
+			});
+			const expectedFileContent = await readFile(exampleFilePath, {
+				encoding: 'utf8',
+			});
+			assert.equal(fileContent, expectedFileContent);
+		});
 	});
 
 	describe('#createMigrationFile', () => {
