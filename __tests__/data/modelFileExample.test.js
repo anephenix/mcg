@@ -1,15 +1,10 @@
-const pluralize = require('pluralize');
-const to = require('to-case');
-
-const template = (modelName) => {
-	const tableName = pluralize(to.slug(modelName));
-	return `// Dependencies
+// Dependencies
 const { Model } = require('objection');
 
-class ${modelName} extends Model {
+class Post extends Model {
 	/* Always define the table in the db that the model refers to */
 	static get tableName() {
-		return '${tableName}';
+		return 'posts';
 	}
 
 	// Assume timestamps are always present
@@ -45,8 +40,4 @@ class ${modelName} extends Model {
 	}
 }
 
-module.exports = ${modelName};
-`;
-};
-
-module.exports = template;
+module.exports = Post;
