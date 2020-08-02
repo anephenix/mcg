@@ -1,8 +1,30 @@
+const { getTimestamp } = require('../../lib/createRequiredFiles');
+const assert = require('assert');
+
+Object.defineProperty(Date.prototype, 'YYYYMMDDHHMMSS', {
+	value: function () {
+		function pad2(n) {
+			// always returns a string
+			return (n < 10 ? '0' : '') + n;
+		}
+
+		return (
+			this.getFullYear() +
+			pad2(this.getMonth() + 1) +
+			pad2(this.getDate()) +
+			pad2(this.getHours()) +
+			pad2(this.getMinutes()) +
+			pad2(this.getSeconds())
+		);
+	},
+});
+
 describe('createRequiredFiles', () => {
 	describe('#getTimestamp', () => {
-		it.todo(
-			'should return the timestamp identical to what Knex.js uses for migration filenames'
-		);
+		it('should return the timestamp identical to what Knex.js uses for migration filenames', async () => {
+			const timestamp = getTimestamp();
+			assert.equal(timestamp, new Date().YYYYMMDDHHMMSS());
+		});
 	});
 	describe('#createModelFile', () => {
 		it.todo('should create the model file for the model');
