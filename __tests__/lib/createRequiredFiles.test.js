@@ -6,9 +6,13 @@ const {
 	createTestModelFile,
 	getTimestamp,
 	createTestSeedDataFile,
+	createRequiredFiles,
 } = require('../../lib/createRequiredFiles');
-const { createFolderUnlessExists } = require('../../lib/createRequiredFolders');
-const { stat, rmdir, readFile } = require('../../lib/helpers');
+const {
+	createFolderUnlessExists,
+	createRequiredFolders,
+} = require('../../lib/createRequiredFolders');
+const { stat, rmdir, readFile, mkdir } = require('../../lib/helpers');
 
 Object.defineProperty(Date.prototype, 'YYYYMMDDHHMMSS', {
 	value: function () {
@@ -170,13 +174,56 @@ describe('createRequiredFiles', () => {
 	});
 
 	describe('#createRequiredFiles', () => {
-		it.todo('should create the required files for the model');
-		it.todo(
-			'should support creating those files in a custom root directory'
-		);
-		it.todo(
-			'should support creating the test files in a custom test folder'
-		);
-		it.todo('should return a list of the files created');
+		const anotherRootDir = path.join(process.cwd(), 'secondTestApp');
+		const testFolder = 'test';
+		let expectedFiles = null;
+		let result = null;
+
+		beforeAll(async () => {
+			await mkdir(anotherRootDir);
+			await createRequiredFolders({
+				rootDir: anotherRootDir,
+				testFolder,
+			});
+			const timeStamp = getTimestamp();
+			expectedFiles = [
+				'/models/Post.js',
+				`/migrations/${timeStamp}_create_posts_table.js`,
+				`/${testFolder}/models/Post.test.js`,
+				`/${testFolder}/data/seedPost.js`,
+			];
+			result = await createRequiredFiles({
+				modelName: 'Post',
+				rootDir: anotherRootDir,
+				testFolder,
+			});
+		});
+
+		afterAll(async () => {
+			await rmdir(anotherRootDir, { recursive: true });
+		});
+
+		it('should create the required files for the model', async () => {
+			for await (const file of expectedFiles) {
+				await stat(anotherRootDir + file);
+			}
+		});
+		it('should support creating those files in a custom root directory', () => {
+			assert.notEqual(rootDir, anotherRootDir);
+			assert.notEqual(process.cwd(), anotherRootDir);
+			assert(anotherRootDir.match('secondTestApp') !== null);
+		});
+		it('should support creating the test files in a custom test folder', () => {
+			for (const file of expectedFiles) {
+				assert(file.match('__tests__') === null);
+			}
+		});
+		it('should return a list of the files created', () => {
+			assert(result instanceof Array);
+			assert.equal(result.length, 4);
+			for (const file of expectedFiles) {
+				assert(result.indexOf(anotherRootDir + file) !== -1);
+			}
+		});
 	});
 });
