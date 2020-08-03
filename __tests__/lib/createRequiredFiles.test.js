@@ -107,15 +107,18 @@ describe('createRequiredFiles', () => {
 
 	describe('#createTestModelFile', () => {
 		it('should create the test model file for the model', async () => {
-			const testFolder = '__tests__';
-			await createRequiredFolder(testFolder, ['models']);
+			await createRequiredFolder('__tests__', ['models']);
 			await createTestModelFile({
 				modelName,
 				rootDir,
-				testFolder,
+				testFolder: '__tests__',
 			});
 			return await compareExpectedAndActualFiles({
-				expectedFilePathFolders: [testFolder, 'models', 'Post.test.js'],
+				expectedFilePathFolders: [
+					'__tests__',
+					'models',
+					'Post.test.js',
+				],
 				exampleFileName: 'testModelFileExample.test.js',
 			});
 		});
@@ -123,15 +126,14 @@ describe('createRequiredFiles', () => {
 
 	describe('#createTestSeedDataFile', () => {
 		it('should create the test data seed file for the model', async () => {
-			const testFolder = '__tests__';
-			await createRequiredFolder(testFolder, ['data']);
+			await createRequiredFolder('__tests__', ['data']);
 			await createTestSeedDataFile({
 				modelName,
 				rootDir,
-				testFolder,
+				testFolder: '__tests__',
 			});
 			return await compareExpectedAndActualFiles({
-				expectedFilePathFolders: [testFolder, 'data', 'seedPost.js'],
+				expectedFilePathFolders: ['__tests__', 'data', 'seedPost.js'],
 				exampleFileName: 'testSeedDataFileExample.test.js',
 			});
 		});
