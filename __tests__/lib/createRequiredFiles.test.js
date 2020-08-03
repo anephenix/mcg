@@ -44,6 +44,13 @@ describe('createRequiredFiles', () => {
 		return await rmdir(rootDir, { recursive: true });
 	});
 
+	const createRequiredFolder = async (testFolder, folders) => {
+		await createFolderUnlessExists(path.join(rootDir, testFolder));
+		return await createFolderUnlessExists(
+			path.join(rootDir, testFolder, ...folders)
+		);
+	};
+
 	describe('#getTimestamp', () => {
 		it('should return the timestamp identical to what Knex.js uses for migration filenames', async () => {
 			const timestamp = getTimestamp();
@@ -104,10 +111,7 @@ describe('createRequiredFiles', () => {
 	describe('#createTestModelFile', () => {
 		it('should create the test model file for the model', async () => {
 			const testFolder = '__tests__';
-			await createFolderUnlessExists(path.join(rootDir, testFolder));
-			await createFolderUnlessExists(
-				path.join(rootDir, testFolder, 'models')
-			);
+			await createRequiredFolder(testFolder, ['models']);
 			await createTestModelFile({
 				modelName,
 				rootDir,
@@ -140,10 +144,7 @@ describe('createRequiredFiles', () => {
 	describe('#createTestSeedDataFile', () => {
 		it('should create the test data seed file for the model', async () => {
 			const testFolder = '__tests__';
-			await createFolderUnlessExists(path.join(rootDir, testFolder));
-			await createFolderUnlessExists(
-				path.join(rootDir, testFolder, 'data')
-			);
+			await createRequiredFolder(testFolder, ['data']);
 			await createTestSeedDataFile({
 				modelName,
 				rootDir,
