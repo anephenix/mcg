@@ -6,14 +6,21 @@ const packageJson = require('../package.json');
 
 const mainAction = async ({ args }) => {
 	const modelName = args[0];
-	const filesCreated = await main(modelName);
+	const { testFolder } = program;
+	const filesCreated = await main(modelName, process.cwd(), testFolder);
 	console.log('Created files:');
 	filesCreated.forEach((fc) => {
 		console.log(fc);
 	});
 };
 
-program.version(packageJson.version).action(mainAction);
+program
+	.version(packageJson.version)
+	.option(
+		'-t,--testFolder <testFolder>',
+		'custom folder for the test files to be put in'
+	)
+	.action(mainAction);
 
 // Run the command
 program.parse(process.argv);

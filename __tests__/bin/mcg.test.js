@@ -25,7 +25,33 @@ describe('mcg', () => {
 		await rmdir(path.join(process.cwd(), 'migrations'), {
 			recursive: true,
 		});
-		await rmdir(path.join(process.cwd(), '__tests__', 'migrations'), {
+		await rmdir(path.join(process.cwd(), '__tests__', 'models'), {
+			recursive: true,
+		});
+	});
+
+	it('should generate the test files in a custom folder, if a custom test folder is passed', async () => {
+		const command = './bin/mcg Post --testFolder test';
+		const { stdout } = await exec(command);
+		const timestamp = getTimestamp();
+		const filesToCheck = [
+			'test/models/Post.test.js',
+			'test/data/seedPost.js',
+			'models/Post.js',
+			`migrations/${timestamp}_create_posts_table.js`,
+		];
+		for await (const fileToCheck of filesToCheck) {
+			const filePath = path.join(process.cwd(), fileToCheck);
+			const fileCheck = await stat(filePath);
+			assert(fileCheck.isFile());
+			assert(stdout.match(filePath) !== null);
+			await unlink(filePath);
+		}
+		await rmdir(path.join(process.cwd(), 'models'), { recursive: true });
+		await rmdir(path.join(process.cwd(), 'migrations'), {
+			recursive: true,
+		});
+		await rmdir(path.join(process.cwd(), 'test', 'models'), {
 			recursive: true,
 		});
 	});
