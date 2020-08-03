@@ -6,6 +6,11 @@ const {
 } = require('../../lib/createRequiredFolders');
 const { stat, rmdir, mkdir } = require('../../lib/helpers');
 
+const checkFolderExists = async (folders) => {
+	const folderCheck = await stat(path.join(...folders));
+	assert(folderCheck.isDirectory());
+};
+
 describe('createRequiredFolders', () => {
 	describe('#createRequiredFolders', () => {
 		const rootDir = path.join(process.cwd(), 'thirdTestApp');
@@ -27,28 +32,19 @@ describe('createRequiredFolders', () => {
 		*/
 
 		it('should create a models folder', async () => {
-			const folderCheck = await stat(path.join(rootDir, 'models'));
-			assert(folderCheck.isDirectory());
+			return await checkFolderExists([rootDir, 'models']);
 		});
 		it('should create a migrations folder', async () => {
-			const folderCheck = await stat(path.join(rootDir, 'migrations'));
-			assert(folderCheck.isDirectory());
+			return await checkFolderExists([rootDir, 'migrations']);
 		});
 		it('should create a __tests__ folder', async () => {
-			const folderCheck = await stat(path.join(rootDir, '__tests__'));
-			assert(folderCheck.isDirectory());
+			return await checkFolderExists([rootDir, '__tests__']);
 		});
 		it('should create a __tests__/models folder', async () => {
-			const folderCheck = await stat(
-				path.join(rootDir, '__tests__', 'models')
-			);
-			assert(folderCheck.isDirectory());
+			return await checkFolderExists([rootDir, '__tests__', 'models']);
 		});
 		it('should create a __tests__/data folder', async () => {
-			const folderCheck = await stat(
-				path.join(rootDir, '__tests__', 'data')
-			);
-			assert(folderCheck.isDirectory());
+			return await checkFolderExists([rootDir, '__tests__', 'data']);
 		});
 
 		it('should create the folders in a custom root directory if one is specified', async () => {
@@ -63,8 +59,7 @@ describe('createRequiredFolders', () => {
 				rootDir: anotherRootDir,
 				testFolder: anotherTestFolder,
 			});
-			const folderCheck = await stat(path.join(anotherRootDir, 'test'));
-			assert(folderCheck.isDirectory());
+			await checkFolderExists([anotherRootDir, 'test']);
 			await rmdir(anotherRootDir, { recursive: true });
 		});
 	});
@@ -77,16 +72,14 @@ describe('createRequiredFolders', () => {
 				assert(false, 'This line should not be reached');
 			} catch {
 				await createFolderUnlessExists(folderPathToCreate);
-				const folderCheck = await stat(folderPathToCreate);
-				assert(folderCheck.isDirectory());
+				await checkFolderExists([folderPathToCreate]);
 				await rmdir(folderPathToCreate);
 			}
 		});
 		it('should return folder if the folder exists already', async () => {
 			const folderPathToNotCreate = path.join(process.cwd(), 'gallery');
 			await mkdir(folderPathToNotCreate);
-			const folderCheck = await stat(folderPathToNotCreate);
-			assert(folderCheck.isDirectory());
+			await checkFolderExists([folderPathToNotCreate]);
 			await createFolderUnlessExists(folderPathToNotCreate);
 			await rmdir(folderPathToNotCreate);
 		});
