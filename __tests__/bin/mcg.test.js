@@ -10,7 +10,7 @@ describe('mcg', () => {
 		const timestamp = getTimestamp();
 		const filesToCheck = [
 			'__tests__/models/Post.test.js',
-			'__tests__/data/seedPost.js',
+			'__tests__/data/postData.test.js',
 			'models/Post.js',
 			`migrations/${timestamp}_create_posts_table.js`,
 		];
@@ -36,7 +36,7 @@ describe('mcg', () => {
 		const timestamp = getTimestamp();
 		const filesToCheck = [
 			'test/models/Post.test.js',
-			'test/data/seedPost.js',
+			'test/data/postData.test.js',
 			'models/Post.js',
 			`migrations/${timestamp}_create_posts_table.js`,
 		];

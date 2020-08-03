@@ -133,7 +133,7 @@ describe('createRequiredFiles', () => {
 				testFolder: '__tests__',
 			});
 			return await compareExpectedAndActualFiles({
-				expectedFilePathFolders: ['__tests__', 'data', 'seedPost.js'],
+				expectedFilePathFolders: ['__tests__', 'data', 'postData.test.js'],
 				exampleFileName: 'testSeedDataFileExample.test.js',
 			});
 		});
@@ -156,7 +156,7 @@ describe('createRequiredFiles', () => {
 				'/models/Post.js',
 				`/migrations/${timeStamp}_create_posts_table.js`,
 				`/${testFolder}/models/Post.test.js`,
-				`/${testFolder}/data/seedPost.js`,
+				`/${testFolder}/data/postData.test.js`,
 			];
 			result = await createRequiredFiles({
 				modelName: 'Post',

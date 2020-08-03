@@ -1,7 +1,7 @@
 // Dependencies
 
-const seedPosts = {
+const posts = {
 	valid: {},
 };
 
-module.exports = seedPosts;
+module.exports = posts;

@@ -4,8 +4,6 @@ The dream scenario would be to generate a set of Objection.js models and support
 
 ### TODO features
 
--   Adjust the name for the seed data file to /data/modelData.test.js
-
 -   Be able to pass --timestamps as an optional feature
 -   Pass attributes to setup in the model e.g. title:string description:text published:boolean
 -   Be able to specify relationships to other models

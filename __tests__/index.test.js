@@ -103,7 +103,7 @@ describe('main', () => {
 
 	it('should create the test seed model file inside the __tests__/data/ folder', async () => {
 		return await fileAndContentCheckWrapper({
-			filePathElements: ['__tests__', 'data', 'seedPost.js'],
+			filePathElements: ['__tests__', 'data', 'postData.test.js'],
 			expectedContent: testSeedDataFileTemplate('Post'),
 		});
 	});
