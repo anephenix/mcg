@@ -4,7 +4,6 @@ The dream scenario would be to generate a set of Objection.js models and support
 
 ### TODO features
 
--   Customise the name of the test folder (some repos have 'test' or 'spec' instead of tests)
 -   Adjust the name for the seed data file to /data/modelData.test.js
 
 -   Be able to pass --timestamps as an optional feature

@@ -1,13 +1,33 @@
 #!/usr/bin/env node
 
+const fs = require('fs');
+const path = require('path');
+const util = require('util');
 const program = require('commander');
 const main = require('../index');
 const packageJson = require('../package.json');
 
+// Helper functions
+const exists = util.promisify(fs.exists);
+
+const loadConfigFileIfExists = async () => {
+	const expectedConfigFilePath = path.join(process.cwd(), 'mcg.config.js');
+	const configFileExists = await exists(expectedConfigFilePath);
+	if (!configFileExists) return {};
+	console.log(
+		`Using configuration settings found at ${expectedConfigFilePath}`
+	);
+	const configFile = require(expectedConfigFilePath);
+	return configFile;
+};
+
 const mainAction = async ({ args }) => {
 	const modelName = args[0];
-	const { testFolder } = program;
-	const filesCreated = await main(modelName, process.cwd(), testFolder);
+	const configFileOptions = await loadConfigFileIfExists();
+	const testFolder = program.testFolder || configFileOptions.testFolder;
+	const mainDir =
+		program.mainDir || configFileOptions.mainDir || process.cwd();
+	const filesCreated = await main(modelName, mainDir, testFolder);
 	console.log('Created files:');
 	filesCreated.forEach((fc) => {
 		console.log(fc);
@@ -19,6 +39,10 @@ program
 	.option(
 		'-t,--testFolder <testFolder>',
 		'custom folder for the test files to be put in'
+	)
+	.option(
+		'-m,--mainDir <mainDir>',
+		'the main folder for the files to be generated in'
 	)
 	.action(mainAction);
 
