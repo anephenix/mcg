@@ -1,6 +1,6 @@
 const assert = require('assert');
 const path = require('path');
-const { exec, mkdir, rmdir, stat, unlink } = require('../../lib/helpers');
+const { exec, mkdir, rmdir, stat, unlink, writeFile } = require('../../lib/helpers');
 const { getTimestamp } = require('../../lib/createRequiredFiles');
 
 describe('mcg', () => {
@@ -76,5 +76,35 @@ describe('mcg', () => {
 			await unlink(filePath);
 		}
 		await rmdir(path.join(mainDir), { recursive: true });
+	});
+
+	it('should read any custom testDir and mainDir settings from a config file, if a config file is present', async () => {
+		const configFilePath = path.join(process.cwd(), 'mcg.config.js');
+		const configFileData = `module.exports = { testFolder: 'spec' };`;
+		await writeFile(configFilePath, configFileData);
+		const command = './bin/mcg Post';
+		const { stdout } = await exec(command);
+		const timestamp = getTimestamp();
+		const filesToCheck = [
+			'spec/models/Post.test.js',
+			'spec/data/postData.test.js',
+			'models/Post.js',
+			`migrations/${timestamp}_create_posts_table.js`,
+		];
+		for await (const fileToCheck of filesToCheck) {
+			const filePath = path.join(process.cwd(), fileToCheck);
+			const fileCheck = await stat(filePath);
+			assert(fileCheck.isFile());
+			assert(stdout.match(filePath) !== null);
+			await unlink(filePath);
+		}
+		await rmdir(path.join(process.cwd(), 'models'), { recursive: true });
+		await rmdir(path.join(process.cwd(), 'migrations'), {
+			recursive: true,
+		});
+		await rmdir(path.join(process.cwd(), 'spec'), {
+			recursive: true,
+		});
+		await unlink(configFilePath);
 	});
 });
