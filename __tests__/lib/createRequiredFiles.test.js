@@ -52,9 +52,16 @@ describe('createRequiredFiles', () => {
 	};
 
 	const compareExpectedAndActualFiles = async ({
-		expectedFilePath,
-		exampleFilePath,
+		expectedFilePathFolders,
+		exampleFileName,
 	}) => {
+		const expectedFilePath = path.join(rootDir, ...expectedFilePathFolders);
+		const exampleFilePath = path.join(
+			process.cwd(),
+			'__tests__',
+			'data',
+			exampleFileName
+		);
 		const fileCheck = await stat(expectedFilePath);
 		assert(fileCheck.isFile());
 		const fileContent = await readFile(expectedFilePath, {
@@ -76,16 +83,9 @@ describe('createRequiredFiles', () => {
 		it('should create the model file for the model', async () => {
 			await createFolderUnlessExists(path.join(rootDir, 'models'));
 			await createModelFile({ modelName, rootDir });
-			const expectedFilePath = path.join(rootDir, 'models', 'Post.js');
-			const exampleFilePath = path.join(
-				process.cwd(),
-				'__tests__',
-				'data',
-				'modelFileExample.test.js'
-			);
 			return await compareExpectedAndActualFiles({
-				expectedFilePath,
-				exampleFilePath,
+				expectedFilePathFolders: ['models', 'Post.js'],
+				exampleFileName: 'modelFileExample.test.js',
 			});
 		});
 	});
@@ -95,20 +95,12 @@ describe('createRequiredFiles', () => {
 			await createFolderUnlessExists(path.join(rootDir, 'migrations'));
 			await createMigrationFile({ modelName, rootDir });
 			const timestamp = getTimestamp();
-			const expectedFilePath = path.join(
-				rootDir,
-				'migrations',
-				`${timestamp}_create_posts_table.js`
-			);
-			const exampleFilePath = path.join(
-				process.cwd(),
-				'__tests__',
-				'data',
-				'migrationFileExample.test.js'
-			);
 			return await compareExpectedAndActualFiles({
-				expectedFilePath,
-				exampleFilePath,
+				expectedFilePathFolders: [
+					'migrations',
+					`${timestamp}_create_posts_table.js`,
+				],
+				exampleFileName: 'migrationFileExample.test.js',
 			});
 		});
 	});
@@ -122,21 +114,9 @@ describe('createRequiredFiles', () => {
 				rootDir,
 				testFolder,
 			});
-			const expectedFilePath = path.join(
-				rootDir,
-				testFolder,
-				'models',
-				'Post.test.js'
-			);
-			const exampleFilePath = path.join(
-				process.cwd(),
-				testFolder,
-				'data',
-				'testModelFileExample.test.js'
-			);
 			return await compareExpectedAndActualFiles({
-				expectedFilePath,
-				exampleFilePath,
+				expectedFilePathFolders: [testFolder, 'models', 'Post.test.js'],
+				exampleFileName: 'testModelFileExample.test.js',
 			});
 		});
 	});
@@ -150,21 +130,9 @@ describe('createRequiredFiles', () => {
 				rootDir,
 				testFolder,
 			});
-			const expectedFilePath = path.join(
-				rootDir,
-				testFolder,
-				'data',
-				'seedPost.js'
-			);
-			const exampleFilePath = path.join(
-				process.cwd(),
-				testFolder,
-				'data',
-				'testSeedDataFileExample.test.js'
-			);
 			return await compareExpectedAndActualFiles({
-				expectedFilePath,
-				exampleFilePath,
+				expectedFilePathFolders: [testFolder, 'data', 'seedPost.js'],
+				exampleFileName: 'testSeedDataFileExample.test.js',
 			});
 		});
 	});
