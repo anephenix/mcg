@@ -51,6 +51,21 @@ describe('createRequiredFiles', () => {
 		);
 	};
 
+	const compareExpectedAndActualFiles = async ({
+		expectedFilePath,
+		exampleFilePath,
+	}) => {
+		const fileCheck = await stat(expectedFilePath);
+		assert(fileCheck.isFile());
+		const fileContent = await readFile(expectedFilePath, {
+			encoding: 'utf8',
+		});
+		const expectedFileContent = await readFile(exampleFilePath, {
+			encoding: 'utf8',
+		});
+		assert.equal(fileContent, expectedFileContent);
+	};
+
 	describe('#getTimestamp', () => {
 		it('should return the timestamp identical to what Knex.js uses for migration filenames', async () => {
 			const timestamp = getTimestamp();
@@ -68,15 +83,10 @@ describe('createRequiredFiles', () => {
 				'data',
 				'modelFileExample.test.js'
 			);
-			const fileCheck = await stat(expectedFilePath);
-			assert(fileCheck.isFile());
-			const fileContent = await readFile(expectedFilePath, {
-				encoding: 'utf8',
+			return await compareExpectedAndActualFiles({
+				expectedFilePath,
+				exampleFilePath,
 			});
-			const expectedFileContent = await readFile(exampleFilePath, {
-				encoding: 'utf8',
-			});
-			assert.equal(fileContent, expectedFileContent);
 		});
 	});
 
@@ -96,15 +106,10 @@ describe('createRequiredFiles', () => {
 				'data',
 				'migrationFileExample.test.js'
 			);
-			const fileCheck = await stat(expectedFilePath);
-			assert(fileCheck.isFile());
-			const fileContent = await readFile(expectedFilePath, {
-				encoding: 'utf8',
+			return await compareExpectedAndActualFiles({
+				expectedFilePath,
+				exampleFilePath,
 			});
-			const expectedFileContent = await readFile(exampleFilePath, {
-				encoding: 'utf8',
-			});
-			assert.equal(fileContent, expectedFileContent);
 		});
 	});
 
@@ -129,15 +134,10 @@ describe('createRequiredFiles', () => {
 				'data',
 				'testModelFileExample.test.js'
 			);
-			const fileCheck = await stat(expectedFilePath);
-			assert(fileCheck.isFile());
-			const fileContent = await readFile(expectedFilePath, {
-				encoding: 'utf8',
+			return await compareExpectedAndActualFiles({
+				expectedFilePath,
+				exampleFilePath,
 			});
-			const expectedFileContent = await readFile(exampleFilePath, {
-				encoding: 'utf8',
-			});
-			assert.equal(fileContent, expectedFileContent);
 		});
 	});
 
@@ -162,15 +162,10 @@ describe('createRequiredFiles', () => {
 				'data',
 				'testSeedDataFileExample.test.js'
 			);
-			const fileCheck = await stat(expectedFilePath);
-			assert(fileCheck.isFile());
-			const fileContent = await readFile(expectedFilePath, {
-				encoding: 'utf8',
+			return await compareExpectedAndActualFiles({
+				expectedFilePath,
+				exampleFilePath,
 			});
-			const expectedFileContent = await readFile(exampleFilePath, {
-				encoding: 'utf8',
-			});
-			assert.equal(fileContent, expectedFileContent);
 		});
 	});
 
