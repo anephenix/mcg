@@ -39,12 +39,38 @@ This will do the following:
 -   Create a folder called migrations, unless it already exists
 -   Generate a migration file to create the posts table with the created_at and updated_at timestamp fields.
 
+You can pass the following optional arguments:
+
+--testFolder - specify a custom folder name to put the test model file and seed data file in (e.g. test, spec)
+--mainDir    - specify a custom folder path to generate all of the files in, in case your app's code is not in the current working directory
+
+There is also the option of setting these optional arguments in a mcg.config.js file that looks like this:
+
+```javascript
+module.exports = {
+	testFolder: 'spec',
+	mainDir: 'app'
+};
+```
+
 You can also use MCG programmatically, like this:
 
 ```javascript
 const mcg = require('@anephenix/mcg');
 (async () => {
 	await mcg('Post');
+})();
+```
+
+The mainDir and testFolder are optional 2nd and 3rd arguments to that command:
+
+```javascript
+const path = require('path');
+const mcg = require('@anephenix/mcg');
+(async () => {
+	const mainDir = path.join(process.cwd(), 'app');
+	const testFolder = 'spec';
+	await mcg('Post', mainDir, testFolder);
 })();
 ```
 
