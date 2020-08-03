@@ -42,6 +42,17 @@ describe('main', () => {
 		assert.equal(fileContent, expectedContent);
 	};
 
+	const fileAndContentCheckWrapper = async ({
+		filePathElements,
+		expectedContent,
+	}) => {
+		const filePath = path.join(rootDir, ...filePathElements);
+		await checkFileExistsAndContentIsExpected({
+			filePath,
+			expectedContent,
+		});
+	};
+
 	describe('when the models folder does not yet exist', () => {
 		it('should create the models folder', async () => {
 			await checkDirectoryExists(['models']);
@@ -67,48 +78,33 @@ describe('main', () => {
 	});
 
 	it('should create the model file inside the models folder', async () => {
-		const filePath = path.join(rootDir, 'models', 'Post.js');
-		const expectedContent = modelFileTemplate('Post');
-		await checkFileExistsAndContentIsExpected({
-			filePath,
-			expectedContent,
+		return await fileAndContentCheckWrapper({
+			filePathElements: ['models', 'Post.js'],
+			expectedContent: modelFileTemplate('Post'),
 		});
 	});
 
 	it('should create the migration file inside the migrations folder', async () => {
-		const timestamp = getTimestamp();
-		const filePath = path.join(
-			rootDir,
-			'migrations',
-			`${timestamp}_create_posts_table.js`
-		);
-		const expectedContent = migrationFileTemplate('posts');
-		await checkFileExistsAndContentIsExpected({
-			filePath,
-			expectedContent,
+		return await fileAndContentCheckWrapper({
+			filePathElements: [
+				'migrations',
+				`${getTimestamp()}_create_posts_table.js`,
+			],
+			expectedContent: migrationFileTemplate('posts'),
 		});
 	});
 
 	it('should create the test model file inside the __tests__/models/ folder', async () => {
-		const filePath = path.join(
-			rootDir,
-			'__tests__',
-			'models',
-			'Post.test.js'
-		);
-		const expectedContent = testModelFileTemplate('Post');
-		await checkFileExistsAndContentIsExpected({
-			filePath,
-			expectedContent,
+		return await fileAndContentCheckWrapper({
+			filePathElements: ['__tests__', 'models', 'Post.test.js'],
+			expectedContent: testModelFileTemplate('Post'),
 		});
 	});
 
 	it('should create the test seed model file inside the __tests__/data/ folder', async () => {
-		const filePath = path.join(rootDir, '__tests__', 'data', 'seedPost.js');
-		const expectedContent = testSeedDataFileTemplate('Post');
-		await checkFileExistsAndContentIsExpected({
-			filePath,
-			expectedContent,
+		return await fileAndContentCheckWrapper({
+			filePathElements: ['__tests__', 'data', 'seedPost.js'],
+			expectedContent: testSeedDataFileTemplate('Post'),
 		});
 	});
 });

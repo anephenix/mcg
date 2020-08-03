@@ -27,9 +27,6 @@ describe('createRequiredFolders', () => {
 		afterAll(async () => {
 			await rmdir(rootDir, { recursive: true });
 		});
-		/*
-			for the tests, check that it creates those folders
-		*/
 
 		it('should create a models folder', async () => {
 			return await checkFolderExists([rootDir, 'models']);
