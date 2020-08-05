@@ -28,6 +28,14 @@ const mainAction = async ({ args }) => {
 	const mainDir =
 		program.mainDir || configFileOptions.mainDir || process.cwd();
 	const filesCreated = await main(modelName, mainDir, testFolder);
+	const attributes = program.attributes;
+	// TODO - have a way to turn the attributes into a JS object
+	// TODO - use that js object to:
+	// - create the table columns in the migration file
+	// - define the properties in the model file's JSON schema
+	// - define the properties for the test seed data file
+	// - define the things to test in the model test file (validations)
+	console.log({attributes});
 	console.log('Created files:');
 	filesCreated.forEach((fc) => {
 		console.log(fc);
@@ -43,6 +51,10 @@ program
 	.option(
 		'-m,--mainDir <mainDir>',
 		'the main folder for the files to be generated in'
+	)
+	.option(
+		'-a, --attributes <attributes...>',
+		'the attributes to insert into the model'
 	)
 	.action(mainAction);
 
