@@ -107,4 +107,14 @@ describe('mcg', () => {
 		});
 		await unlink(configFilePath);
 	});
+
+	describe('with attributes passed', () => {
+		it.todo('should generate a migration file that specifies what fields to put in the model table');
+		it.todo('should generate a model file with a jsonSchema property');
+		it.todo('should define properties for the test seed data file');
+		it.todo('should define things to test in the model test file, such as validations');
+	});
+	// Q - how to pass attributes in a way that can support jsonSchema, migration, test seed and test code?
+	// T - I wonder if official jsonSchema JSON would be possible - would be a great way to assemble an API from a schema
+
 });

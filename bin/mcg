@@ -28,7 +28,7 @@ const mainAction = async ({ args }) => {
 	const mainDir =
 		program.mainDir || configFileOptions.mainDir || process.cwd();
 	const filesCreated = await main(modelName, mainDir, testFolder);
-	const attributes = program.attributes;
+	const { attributes } = program;
 	// TODO - have a way to turn the attributes into a JS object
 	// TODO - use that js object to:
 	// - create the table columns in the migration file
