@@ -41,9 +41,9 @@ This will do the following:
 
 You can pass the following optional arguments:
 
---testFolder - specify a custom folder name to put the test model file and seed data file in (e.g. test, spec)
---mainDir - specify a custom folder path to generate all of the files in, in case your app's code is not in the current working directory
---tableName - specify a custom database table name for the model and migration file (.e.g. blog_posts)
+-   --testFolder - specify a custom folder name to put the test model file and seed data file in (e.g. test, spec)
+-   --mainDir - specify a custom folder path to generate all of the files in, in case your app's code is not in the current working directory
+-   --tableName - specify a custom database table name for the model and migration file (.e.g. blog_posts)
 
 There is also the option of setting these optional arguments in a mcg.config.js file that looks like this:
 
