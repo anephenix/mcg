@@ -167,6 +167,7 @@ describe('createRequiredFiles', () => {
 				modelName: 'Post',
 				rootDir: anotherRootDir,
 				testFolder,
+				tableName,
 			});
 		});
 
