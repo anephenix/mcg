@@ -35,6 +35,7 @@ Object.defineProperty(Date.prototype, 'YYYYMMDDHHMMSS', {
 describe('createRequiredFiles', () => {
 	const rootDir = path.join(process.cwd(), 'testApp');
 	const modelName = 'Post';
+	const tableName = 'posts';
 
 	beforeAll(async () => {
 		return await createFolderUnlessExists(rootDir);
@@ -82,7 +83,7 @@ describe('createRequiredFiles', () => {
 	describe('#createModelFile', () => {
 		it('should create the model file for the model', async () => {
 			await createFolderUnlessExists(path.join(rootDir, 'models'));
-			await createModelFile({ modelName, rootDir });
+			await createModelFile({ modelName, rootDir, tableName });
 			return await compareExpectedAndActualFiles({
 				expectedFilePathFolders: ['models', 'Post.js'],
 				exampleFileName: 'modelFileExample.test.js',
@@ -93,7 +94,7 @@ describe('createRequiredFiles', () => {
 	describe('#createMigrationFile', () => {
 		it('should create the migration file for the model table', async () => {
 			await createFolderUnlessExists(path.join(rootDir, 'migrations'));
-			await createMigrationFile({ modelName, rootDir });
+			await createMigrationFile({ tableName, rootDir });
 			const timestamp = getTimestamp();
 			return await compareExpectedAndActualFiles({
 				expectedFilePathFolders: [
@@ -133,7 +134,11 @@ describe('createRequiredFiles', () => {
 				testFolder: '__tests__',
 			});
 			return await compareExpectedAndActualFiles({
-				expectedFilePathFolders: ['__tests__', 'data', 'postData.test.js'],
+				expectedFilePathFolders: [
+					'__tests__',
+					'data',
+					'postData.test.js',
+				],
 				exampleFileName: 'testSeedDataFileExample.test.js',
 			});
 		});

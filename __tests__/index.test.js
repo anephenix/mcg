@@ -80,7 +80,10 @@ describe('main', () => {
 	it('should create the model file inside the models folder', async () => {
 		return await fileAndContentCheckWrapper({
 			filePathElements: ['models', 'Post.js'],
-			expectedContent: modelFileTemplate('Post'),
+			expectedContent: modelFileTemplate({
+				modelName: 'Post',
+				tableName: 'posts',
+			}),
 		});
 	});
 

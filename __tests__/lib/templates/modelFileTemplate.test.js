@@ -11,7 +11,10 @@ const assert = require('assert');
 
 describe('modelFileTemplate', () => {
 	it('should return the file content for the objection.js model', async () => {
-		const generatedContent = modelFileTemplate('Post');
+		const generatedContent = modelFileTemplate({
+			modelName: 'Post',
+			tableName: 'posts',
+		});
 		const exampleContent = await readFile(modelFileExampleFilePath, {
 			encoding: 'utf8',
 		});
