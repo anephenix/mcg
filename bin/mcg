@@ -27,7 +27,8 @@ const mainAction = async ({ args }) => {
 	const testFolder = program.testFolder || configFileOptions.testFolder;
 	const mainDir =
 		program.mainDir || configFileOptions.mainDir || process.cwd();
-	const filesCreated = await main(modelName, mainDir, testFolder);
+	const tableName = program.tableName || configFileOptions.tableName;
+	const filesCreated = await main(modelName, mainDir, testFolder, tableName);
 	const { attributes } = program;
 	// TODO - have a way to turn the attributes into a JS object
 	// TODO - use that js object to:
@@ -35,7 +36,7 @@ const mainAction = async ({ args }) => {
 	// - define the properties in the model file's JSON schema
 	// - define the properties for the test seed data file
 	// - define the things to test in the model test file (validations)
-	console.log({attributes});
+	console.log({ attributes });
 	console.log('Created files:');
 	filesCreated.forEach((fc) => {
 		console.log(fc);
@@ -56,6 +57,7 @@ program
 		'-a, --attributes <attributes...>',
 		'the attributes to insert into the model'
 	)
+	.option('-d, --tableName <tableName>', 'the name of the database table')
 	.action(mainAction);
 
 // Run the command
