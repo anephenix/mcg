@@ -21,22 +21,22 @@ const loadConfigFileIfExists = async () => {
 	return configFile;
 };
 
-const mainAction = async ({ args }) => {
-	const modelName = args[0];
+const mainAction = async (modelName) => {
+	const options = program.opts();
 	const configFileOptions = await loadConfigFileIfExists();
-	const testFolder = program.testFolder || configFileOptions.testFolder;
+	const testFolder = options.testFolder || configFileOptions.testFolder;
 	const mainDir =
-		program.mainDir || configFileOptions.mainDir || process.cwd();
-	const tableName = program.tableName || configFileOptions.tableName;
+	options.mainDir || configFileOptions.mainDir || process.cwd();
+	const tableName = options.tableName || configFileOptions.tableName;
 	const filesCreated = await main(modelName, mainDir, testFolder, tableName);
-	const { attributes } = program;
+	// const { attributes } = program;
 	// TODO - have a way to turn the attributes into a JS object
 	// TODO - use that js object to:
 	// - create the table columns in the migration file
 	// - define the properties in the model file's JSON schema
 	// - define the properties for the test seed data file
 	// - define the things to test in the model test file (validations)
-	console.log({ attributes });
+	// console.log({ attributes });
 	console.log('Created files:');
 	filesCreated.forEach((fc) => {
 		console.log(fc);
@@ -58,7 +58,8 @@ program
 		'the attributes to insert into the model'
 	)
 	.option('-d, --tableName <tableName>', 'the name of the database table')
+	.arguments('<modelName>')
 	.action(mainAction);
 
 // Run the command
-program.parse(process.argv);
+program.parse();
