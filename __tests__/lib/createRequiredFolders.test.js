@@ -16,7 +16,7 @@ describe('createRequiredFolders', () => {
 		const rootDir = path.join(process.cwd(), 'thirdTestApp');
 		const testFolder = '__tests__';
 
-		beforeAll(async () => {
+		before(async () => {
 			await mkdir(rootDir);
 			await createRequiredFolders({
 				rootDir,
@@ -24,7 +24,7 @@ describe('createRequiredFolders', () => {
 			});
 		});
 
-		afterAll(async () => {
+		after(async () => {
 			await rmdir(rootDir, { recursive: true });
 		});
 

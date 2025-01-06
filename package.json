@@ -5,9 +5,9 @@
 	"main": "index.js",
 	"bin": "./bin/mcg",
 	"scripts": {
+		"cover": "cross-env NODE_ENV=test npx nyc --reporter=lcov npm t",
 		"lint": "npx eslint .",
-		"test": "NODE_ENV=test jest --runInBand --coverage",
-		"coveralls": "NODE_ENV=test jest --runInBand --coverage --coverageReporters=text-lcov | coveralls"
+		"test": "cross-env NODE_ENV=test npx mocha --require ts-node/register --extensions ts,tsx __tests__/* --exclude=__tests__/data/* --test"
 	},
 	"keywords": [
 		"objection",
@@ -22,21 +22,22 @@
 	"author": "Paul Jensen <paul@anephenix.com>",
 	"license": "MIT",
 	"devDependencies": {
+		"@types/mocha": "^10.0.10",
 		"babel-eslint": "^10.1.0",
 		"coveralls": "^3.1.1",
+		"cross-env": "^7.0.3",
 		"eslint": "^8.0.1",
 		"eslint-plugin-jest": "^25.2.2",
-		"husky": "^7.0.2",
-		"jest": "^27.2.5",
-		"npm-upgrade": "^3.0.0",
-		"prettier": "^2.4.1"
+		"husky": "^9.1.7",
+		"mocha": "^11.0.1",
+		"nyc": "^17.1.0",
+		"prettier": "^3.4.2",
+		"ts-node": "^10.9.2",
+		"typescript": "^5.7.2"
 	},
 	"dependencies": {
 		"commander": "^8.2.0",
-		"lint": "^0.7.0",
-		"npm": "^8.1.0",
 		"pluralize": "^8.0.0",
-		"run": "^1.4.0",
 		"to-case": "^2.0.0"
 	}
 }

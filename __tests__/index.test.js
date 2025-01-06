@@ -13,12 +13,12 @@ const {
 
 describe('main', () => {
 	const rootDir = path.join(process.cwd(), 'testApp');
-	beforeAll(async () => {
+	before(async () => {
 		await mkdir(rootDir);
 		return await mcg('Post', rootDir);
 	});
 
-	afterAll(async () => {
+	after(async () => {
 		return await rmdir(rootDir, { recursive: true });
 	});
 

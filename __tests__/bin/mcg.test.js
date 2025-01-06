@@ -186,12 +186,12 @@ describe('mcg', () => {
 	});
 
 	describe('with attributes passed', () => {
-		it.todo(
+		it(
 			'should generate a migration file that specifies what fields to put in the model table'
 		);
-		it.todo('should generate a model file with a jsonSchema property');
-		it.todo('should define properties for the test seed data file');
-		it.todo(
+		it('should generate a model file with a jsonSchema property');
+		it('should define properties for the test seed data file');
+		it(
 			'should define things to test in the model test file, such as validations'
 		);
 	});

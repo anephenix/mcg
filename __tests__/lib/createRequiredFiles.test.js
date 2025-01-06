@@ -37,11 +37,11 @@ describe('createRequiredFiles', () => {
 	const modelName = 'Post';
 	const tableName = 'posts';
 
-	beforeAll(async () => {
+	before(async () => {
 		return await createFolderUnlessExists(rootDir);
 	});
 
-	afterAll(async () => {
+	after(async () => {
 		return await rmdir(rootDir, { recursive: true });
 	});
 
@@ -150,7 +150,7 @@ describe('createRequiredFiles', () => {
 		let expectedFiles = null;
 		let result = null;
 
-		beforeAll(async () => {
+		before(async () => {
 			await mkdir(anotherRootDir);
 			await createRequiredFolders({
 				rootDir: anotherRootDir,
@@ -171,7 +171,7 @@ describe('createRequiredFiles', () => {
 			});
 		});
 
-		afterAll(async () => {
+		after(async () => {
 			await rmdir(anotherRootDir, { recursive: true });
 		});
 
