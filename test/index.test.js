@@ -59,15 +59,15 @@ describe('main', () => {
 		});
 	});
 
-	describe('when the __tests__/models folder does not yet exist', () => {
-		it('should create the __tests__/models folder', async () => {
-			await checkDirectoryExists(['__tests__', 'models']);
+	describe('when the test/models folder does not yet exist', () => {
+		it('should create the test/models folder', async () => {
+			await checkDirectoryExists(['test', 'models']);
 		});
 	});
 
-	describe('when the __tests__/data folder does not yet exist', () => {
-		it('should create the __tests__/data folder', async () => {
-			await checkDirectoryExists(['__tests__', 'data']);
+	describe('when the test/data folder does not yet exist', () => {
+		it('should create the test/data folder', async () => {
+			await checkDirectoryExists(['test', 'data']);
 		});
 	});
 
@@ -97,16 +97,16 @@ describe('main', () => {
 		});
 	});
 
-	it('should create the test model file inside the __tests__/models/ folder', async () => {
+	it('should create the test model file inside the test/models/ folder', async () => {
 		return await fileAndContentCheckWrapper({
-			filePathElements: ['__tests__', 'models', 'Post.test.js'],
+			filePathElements: ['test', 'models', 'Post.test.js'],
 			expectedContent: testModelFileTemplate('Post'),
 		});
 	});
 
-	it('should create the test seed model file inside the __tests__/data/ folder', async () => {
+	it('should create the test seed model file inside the test/data/ folder', async () => {
 		return await fileAndContentCheckWrapper({
-			filePathElements: ['__tests__', 'data', 'postData.test.js'],
+			filePathElements: ['test', 'data', 'postData.test.js'],
 			expectedContent: testSeedDataFileTemplate('Post'),
 		});
 	});

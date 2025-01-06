@@ -5,7 +5,7 @@ const { createRequiredFolders, createRequiredFiles } = require('./lib');
 const main = async (
 	modelName,
 	rootDir = process.cwd(),
-	testFolder = '__tests__',
+	testFolder = 'test',
 	tableName
 ) => {
 	await createRequiredFolders({ rootDir, testFolder });

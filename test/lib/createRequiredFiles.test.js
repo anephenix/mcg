@@ -59,7 +59,7 @@ describe('createRequiredFiles', () => {
 		const expectedFilePath = path.join(rootDir, ...expectedFilePathFolders);
 		const exampleFilePath = path.join(
 			process.cwd(),
-			'__tests__',
+			'test',
 			'data',
 			exampleFileName
 		);
@@ -108,18 +108,14 @@ describe('createRequiredFiles', () => {
 
 	describe('#createTestModelFile', () => {
 		it('should create the test model file for the model', async () => {
-			await createRequiredFolder('__tests__', ['models']);
+			await createRequiredFolder('test', ['models']);
 			await createTestModelFile({
 				modelName,
 				rootDir,
-				testFolder: '__tests__',
+				testFolder: 'test',
 			});
 			return await compareExpectedAndActualFiles({
-				expectedFilePathFolders: [
-					'__tests__',
-					'models',
-					'Post.test.js',
-				],
+				expectedFilePathFolders: ['test', 'models', 'Post.test.js'],
 				exampleFileName: 'testModelFileExample.test.js',
 			});
 		});
@@ -127,18 +123,14 @@ describe('createRequiredFiles', () => {
 
 	describe('#createTestSeedDataFile', () => {
 		it('should create the test data seed file for the model', async () => {
-			await createRequiredFolder('__tests__', ['data']);
+			await createRequiredFolder('test', ['data']);
 			await createTestSeedDataFile({
 				modelName,
 				rootDir,
-				testFolder: '__tests__',
+				testFolder: 'test',
 			});
 			return await compareExpectedAndActualFiles({
-				expectedFilePathFolders: [
-					'__tests__',
-					'data',
-					'postData.test.js',
-				],
+				expectedFilePathFolders: ['test', 'data', 'postData.test.js'],
 				exampleFileName: 'testSeedDataFileExample.test.js',
 			});
 		});
@@ -146,7 +138,7 @@ describe('createRequiredFiles', () => {
 
 	describe('#createRequiredFiles', () => {
 		const anotherRootDir = path.join(process.cwd(), 'secondTestApp');
-		const testFolder = 'test';
+		const testFolder = 'spec';
 		let expectedFiles = null;
 		let result = null;
 
@@ -187,7 +179,8 @@ describe('createRequiredFiles', () => {
 		});
 		it('should support creating the test files in a custom test folder', () => {
 			for (const file of expectedFiles) {
-				assert(file.match('__tests__') === null);
+				console.log({ file });
+				assert(file.match('test/') === null);
 			}
 		});
 		it('should return a list of the files created', () => {

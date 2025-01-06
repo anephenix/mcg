@@ -1,7 +1,7 @@
 const path = require('path');
 const modelFileExampleFilePath = path.join(
 	process.cwd(),
-	'__tests__',
+	'test',
 	'data',
 	'modelFileExample.test.js'
 );

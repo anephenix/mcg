@@ -7,7 +7,7 @@
 	"scripts": {
 		"cover": "cross-env NODE_ENV=test npx nyc --reporter=lcov npm t",
 		"lint": "npx eslint .",
-		"test": "cross-env NODE_ENV=test npx mocha --require ts-node/register --extensions ts,tsx __tests__/* --exclude=__tests__/data/* --test"
+		"test": "cross-env NODE_ENV=test npx mocha --require ts-node/register --extensions ts,tsx test/* --exclude=test/data/* --test"
 	},
 	"keywords": [
 		"objection",

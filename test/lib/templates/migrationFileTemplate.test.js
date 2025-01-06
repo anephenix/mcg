@@ -1,7 +1,7 @@
 const path = require('path');
 const migrationFileExampleFilePath = path.join(
 	process.cwd(),
-	'__tests__',
+	'test',
 	'data',
 	'migrationFileExample.test.js'
 );

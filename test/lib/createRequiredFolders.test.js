@@ -14,7 +14,7 @@ const checkFolderExists = async (folders) => {
 describe('createRequiredFolders', () => {
 	describe('#createRequiredFolders', () => {
 		const rootDir = path.join(process.cwd(), 'thirdTestApp');
-		const testFolder = '__tests__';
+		const testFolder = 'test';
 
 		before(async () => {
 			await mkdir(rootDir);
@@ -34,14 +34,14 @@ describe('createRequiredFolders', () => {
 		it('should create a migrations folder', async () => {
 			return await checkFolderExists([rootDir, 'migrations']);
 		});
-		it('should create a __tests__ folder', async () => {
-			return await checkFolderExists([rootDir, '__tests__']);
+		it('should create a test folder', async () => {
+			return await checkFolderExists([rootDir, 'test']);
 		});
-		it('should create a __tests__/models folder', async () => {
-			return await checkFolderExists([rootDir, '__tests__', 'models']);
+		it('should create a test/models folder', async () => {
+			return await checkFolderExists([rootDir, 'test', 'models']);
 		});
-		it('should create a __tests__/data folder', async () => {
-			return await checkFolderExists([rootDir, '__tests__', 'data']);
+		it('should create a test/data folder', async () => {
+			return await checkFolderExists([rootDir, 'test', 'data']);
 		});
 
 		it('should create the folders in a custom root directory if one is specified', async () => {

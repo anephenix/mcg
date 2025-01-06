@@ -1,7 +1,7 @@
 const path = require('path');
 const testSeedDataFileExampleFilePath = path.join(
 	process.cwd(),
-	'__tests__',
+	'test',
 	'data',
 	'testSeedDataFileExample.test.js'
 );
