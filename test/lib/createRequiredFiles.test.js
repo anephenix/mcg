@@ -179,7 +179,6 @@ describe('createRequiredFiles', () => {
 		});
 		it('should support creating the test files in a custom test folder', () => {
 			for (const file of expectedFiles) {
-				console.log({ file });
 				assert(file.match('test/') === null);
 			}
 		});
