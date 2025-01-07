@@ -33,4 +33,5 @@ jobs:
             - run: chmod +x ./cc-test-reporter
             - run: ./cc-test-reporter before-build
             - run: npm run cover
+            - run: touch mcg.config.js
             - run: ./cc-test-reporter after-build
