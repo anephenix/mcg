@@ -7,7 +7,10 @@
 	"scripts": {
 		"cover": "cross-env NODE_ENV=test npx nyc --reporter=lcov npm t",
 		"lint": "npx eslint .",
-		"test": "cross-env NODE_ENV=test npx mocha --require ts-node/register --extensions ts,tsx test/* --exclude=test/data/* --test"
+		"prepare-patch-release": "npm run update-changelog && git add CHANGELOG.md && git commit -m \"Updated changelog\" && npm version patch",
+		"publish-patch-release": "npm run prepare-patch-release && git push origin master && git push --tags",
+		"test": "cross-env NODE_ENV=test npx mocha --require ts-node/register --extensions ts,tsx test/* --exclude=test/data/* --test",
+		"update-changelog": "npx ts-node scripts/update-changelog.ts"
 	},
 	"keywords": [
 		"objection",
