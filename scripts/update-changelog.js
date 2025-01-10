@@ -14,58 +14,58 @@ var _a = currentVersion.split('.').map(Number), major = _a[0], minor = _a[1], pa
 var nextVersion = "".concat(major, ".").concat(minor, ".").concat(patch + 1);
 // Get previous version from git tags
 var previousVersion = (0, child_process_1.execSync)('git describe --tags --abbrev=0 HEAD^')
-    .toString()
-    .trim();
+	.toString()
+	.trim();
 // Get commit messages between previous version and current version
 var commitMessages = (0, child_process_1.execSync)("git log ".concat(previousVersion, "..HEAD --pretty=format:\"- %s\""))
-    .toString()
-    .trim();
+	.toString()
+	.trim();
 // Get current date
 function getOrdinalSuffix(day) {
-    if (day > 3 && day < 21)
-        return 'th'; // Covers 11th to 19th
-    switch (day % 10) {
-        case 1:
-            return 'st';
-        case 2:
-            return 'nd';
-        case 3:
-            return 'rd';
-        default:
-            return 'th';
-    }
+	if (day > 3 && day < 21)
+		return 'th'; // Covers 11th to 19th
+	switch (day % 10) {
+	case 1:
+		return 'st';
+	case 2:
+		return 'nd';
+	case 3:
+		return 'rd';
+	default:
+		return 'th';
+	}
 }
 function formatDateToString() {
-    var days = [
-        'Sunday',
-        'Monday',
-        'Tuesday',
-        'Wednesday',
-        'Thursday',
-        'Friday',
-        'Saturday',
-    ];
-    var months = [
-        'January',
-        'February',
-        'March',
-        'April',
-        'May',
-        'June',
-        'July',
-        'August',
-        'September',
-        'October',
-        'November',
-        'December',
-    ];
-    var today = new Date();
-    var dayName = days[today.getDay()];
-    var day = today.getDate();
-    var monthName = months[today.getMonth()];
-    var year = today.getFullYear();
-    var ordinalSuffix = getOrdinalSuffix(day);
-    return "".concat(dayName, " ").concat(day).concat(ordinalSuffix, " ").concat(monthName, ", ").concat(year);
+	var days = [
+		'Sunday',
+		'Monday',
+		'Tuesday',
+		'Wednesday',
+		'Thursday',
+		'Friday',
+		'Saturday',
+	];
+	var months = [
+		'January',
+		'February',
+		'March',
+		'April',
+		'May',
+		'June',
+		'July',
+		'August',
+		'September',
+		'October',
+		'November',
+		'December',
+	];
+	var today = new Date();
+	var dayName = days[today.getDay()];
+	var day = today.getDate();
+	var monthName = months[today.getMonth()];
+	var year = today.getFullYear();
+	var ordinalSuffix = getOrdinalSuffix(day);
+	return "".concat(dayName, " ").concat(day).concat(ordinalSuffix, " ").concat(monthName, ", ").concat(year);
 }
 var currentDate = formatDateToString();
 // Read current CHANGELOG.md content
