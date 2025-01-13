@@ -1,6 +1,4 @@
-# This workflow will do a clean install of node dependencies, cache/restore them, build the source code and run tests across different versions of node
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
-
+# Node.js CI Workflow
 name: Node.js CI
 
 on:
@@ -9,36 +7,51 @@ on:
     pull_request:
         branches: [master]
 
+permissions:
+    contents: read # Required for actions/checkout to read the repository
+    checks: write # Required to update the status of checks (e.g., for test results)
+    statuses: write # Required to set commit statuses (used for PRs and commits)
+    security-events: write # Required for uploading coverage reports to services like Code Climate
+
 jobs:
     build:
         runs-on: ubuntu-latest
         env:
             NODE_ENV: test
             CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+
         strategy:
             matrix:
                 node-version: [22.x]
-                # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
         steps:
             - uses: actions/checkout@v2
+
             - name: Use Node.js ${{ matrix.node-version }}
               uses: actions/setup-node@v2
               with:
                   node-version: ${{ matrix.node-version }}
                   cache: 'npm'
+
             - run: npm i
+
             - run: curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
               if: github.ref == 'refs/heads/master'
+
             - run: chmod +x ./cc-test-reporter
               if: github.ref == 'refs/heads/master'
+
             - run: ./cc-test-reporter before-build
               if: github.ref == 'refs/heads/master'
+
             - run: npm run cover
               if: github.ref == 'refs/heads/master'
+
             - run: touch mcg.config.js
               if: github.ref == 'refs/heads/master'
+
             - run: ./cc-test-reporter after-build
               if: github.ref == 'refs/heads/master'
+
             - run: npm t
               if: github.ref != 'refs/heads/master'
