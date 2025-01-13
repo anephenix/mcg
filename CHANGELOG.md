@@ -1,5 +1,24 @@
 # CHANGELOG
 
+### 0.0.5 - Monday 13th January, 2025
+
+- Removed coveralls dependency
+- Permissions fixes for the github action file, part two
+- Permissions fixes for the github action file
+- Adjust the workflow to run CodeClimate checks only on master branch
+- Merge pull request #44 from anephenix/dependabot/npm_and_yarn/babel/eslint-parser-7.26.5
+- Merge pull request #43 from anephenix/dependabot/npm_and_yarn/eslint-9.18.0
+- Merge pull request #45 from anephenix/dependabot/npm_and_yarn/eslint/js-9.18.0
+- Bump @eslint/js from 9.17.0 to 9.18.0
+- Bump @babel/eslint-parser from 7.25.9 to 7.26.5
+- Bump eslint from 9.17.0 to 9.18.0
+- Adjusted TODO notes
+- Updated eslint libraries and applied formatting fixes
+- Updated dependencies
+- Merge pull request #41 from anephenix/dependabot/npm_and_yarn/commander-13.0.0
+- Changed how commander loads program
+- Bump commander from 8.3.0 to 13.0.0
+
 ### 0.0.4 - Wednesday 8th January, 2025
 
 - Small tweaks for the publish step
