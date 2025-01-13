@@ -34,24 +34,10 @@ jobs:
                   cache: 'npm'
 
             - run: npm i
-
             - run: curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-              if: github.ref == 'refs/heads/master'
-
             - run: chmod +x ./cc-test-reporter
-              if: github.ref == 'refs/heads/master'
-
             - run: ./cc-test-reporter before-build
-              if: github.ref == 'refs/heads/master'
-
             - run: npm run cover
-              if: github.ref == 'refs/heads/master'
-
             - run: touch mcg.config.js
-              if: github.ref == 'refs/heads/master'
-
             - run: ./cc-test-reporter after-build
-              if: github.ref == 'refs/heads/master'
-
-            - run: npm t
-              if: github.ref != 'refs/heads/master'
+              if: github.event_name != 'pull_request'
