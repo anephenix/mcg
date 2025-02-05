@@ -1,5 +1,9 @@
 # CHANGELOG
 
+### 0.0.7 - Wednesday 5th February, 2025
+
+- Added size checks
+
 ### 0.0.6 - Sunday 2nd February, 2025
 
 - Updated dependencies
