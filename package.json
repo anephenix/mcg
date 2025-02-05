@@ -7,8 +7,9 @@
 	"scripts": {
 		"cover": "cross-env NODE_ENV=test npx nyc --reporter=lcov npm t",
 		"lint": "npx eslint .",
-		"prepare-patch-release": "npm run update-changelog && git add CHANGELOG.md && git commit -m \"Updated changelog\" && npm version patch",
+		"prepare-patch-release": "npm run size && npm run update-changelog && git add CHANGELOG.md && git commit -m \"Updated changelog\" && npm version patch",
 		"publish-patch-release": "npm run prepare-patch-release && git push origin master && git push --tags",
+		"size": "size-limit",
 		"test": "cross-env NODE_ENV=test npx mocha --require ts-node/register --extensions ts,tsx test/* --exclude=test/data/* --test",
 		"update-changelog": "node scripts/update-changelog.js"
 	},
@@ -19,7 +20,7 @@
 	],
 	"husky": {
 		"hooks": {
-			"pre-commit": "npm run lint && npm t"
+			"pre-commit": "npm run lint && npm t && npm run size"
 		}
 	},
 	"author": "Paul Jensen <paul@anephenix.com>",
@@ -39,6 +40,8 @@
 		"mocha": "^11.0.1",
 		"nyc": "^17.1.0",
 		"prettier": "^3.4.2",
+		"size-limit": "^11.1.6",
+		"size-limit-preset-node-lib": "^0.3.0",
 		"ts-node": "^10.9.2",
 		"typescript": "^5.7.2"
 	},
@@ -46,5 +49,11 @@
 		"commander": "^13.0.0",
 		"pluralize": "^8.0.0",
 		"to-case": "^2.0.0"
-	}
+	},
+	"size-limit": [
+		{
+			"path": "index.js",
+			"limit": "10 kB"
+		}
+	]
 }
