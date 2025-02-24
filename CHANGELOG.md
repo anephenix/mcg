@@ -1,5 +1,20 @@
 # CHANGELOG
 
+### 0.0.9 - Monday 24th February, 2025
+
+- Merge pull request #65 from anephenix/dependabot/npm_and_yarn/eslint/eslintrc-3.3.0
+- Merge pull request #66 from anephenix/dependabot/npm_and_yarn/eslint-9.21.0
+- Merge pull request #63 from anephenix/dependabot/npm_and_yarn/prettier-3.5.2
+- Bump eslint from 9.20.1 to 9.21.0
+- Bump @eslint/eslintrc from 3.2.0 to 3.3.0
+- Bump prettier from 3.5.1 to 3.5.2
+- Merge pull request #62 from anephenix/dependabot/npm_and_yarn/globals-16.0.0
+- Merge pull request #61 from anephenix/dependabot/npm_and_yarn/size-limit-11.2.0
+- Bump globals from 15.15.0 to 16.0.0
+- Bump size-limit from 11.1.6 to 11.2.0
+- Merge pull request #60 from anephenix/dependabot/npm_and_yarn/babel/preset-env-7.26.9
+- Bump @babel/preset-env from 7.26.8 to 7.26.9
+
 ### 0.0.8 - Saturday 15th February, 2025
 
 - Merge pull request #59 from anephenix/dependabot/npm_and_yarn/prettier-3.5.1
