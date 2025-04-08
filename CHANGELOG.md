@@ -1,5 +1,25 @@
 # CHANGELOG
 
+### 0.0.11 - Tuesday 8th April, 2025
+
+- Updated dependencies
+- Merge pull request #78 from anephenix/dependabot/npm_and_yarn/typescript-5.8.3
+- Merge pull request #77 from anephenix/dependabot/npm_and_yarn/eslint-9.24.0
+- Merge pull request #76 from anephenix/dependabot/npm_and_yarn/eslint/js-9.24.0
+- Bump typescript from 5.8.2 to 5.8.3
+- Bump eslint from 9.23.0 to 9.24.0
+- Bump @eslint/js from 9.23.0 to 9.24.0
+- Merge pull request #75 from anephenix/dependabot/npm_and_yarn/babel/eslint-parser-7.27.0
+- Bump @babel/eslint-parser from 7.26.10 to 7.27.0
+- Merge pull request #74 from anephenix/dependabot/npm_and_yarn/eslint-9.23.0
+- Merge pull request #73 from anephenix/dependabot/npm_and_yarn/eslint/eslintrc-3.3.1
+- Merge pull request #72 from anephenix/dependabot/npm_and_yarn/eslint/js-9.23.0
+- Bump eslint from 9.22.0 to 9.23.0
+- Bump @eslint/eslintrc from 3.3.0 to 3.3.1
+- Bump @eslint/js from 9.22.0 to 9.23.0
+- Merge pull request #71 from anephenix/dependabot/npm_and_yarn/babel/eslint-parser-7.26.10
+- Bump @babel/eslint-parser from 7.26.8 to 7.26.10
+
 ### 0.0.10 - Monday 10th March, 2025
 
 - Updated dependencies
