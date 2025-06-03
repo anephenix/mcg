@@ -8,7 +8,6 @@ on:
 
 permissions:
     contents: read # Required for actions/checkout to read the repository
-    packages: write # Required for publishing to npm
     id-token: write # Optional, for OIDC-based authentication if using cloud services
 
 jobs:

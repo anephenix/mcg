@@ -1,17 +1,13 @@
 # Node.js CI Workflow
 name: Node.js CI
+permissions:
+    contents: read
 
 on:
     push:
         branches: [master]
     pull_request:
         branches: [master]
-
-permissions:
-    contents: read # Required for actions/checkout to read the repository
-    checks: write # Required to update the status of checks (e.g., for test results)
-    statuses: write # Required to set commit statuses (used for PRs and commits)
-    security-events: write # Required for uploading coverage reports to services like Code Climate
 
 jobs:
     build:
