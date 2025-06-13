@@ -1,6 +1,6 @@
 # Model Component Generator
 
-[![npm version](https://badge.fury.io/js/%40anephenix%2Fmcg.svg)](https://badge.fury.io/js/%40anephenix%2Fmcg) [![Node.js CI](https://github.com/anephenix/mcg/actions/workflows/node.js.yml/badge.svg)](https://github.com/anephenix/mcg/actions/workflows/node.js.yml) [![Maintainability](https://api.codeclimate.com/v1/badges/3fabf6075ba1859d0b0e/maintainability)](https://codeclimate.com/github/anephenix/mcg/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/3fabf6075ba1859d0b0e/test_coverage)](https://codeclimate.com/github/anephenix/mcg/test_coverage) [![Socket Badge](https://socket.dev/api/badge/npm/package/@anephenix/mcg)](https://socket.dev/npm/package/@anephenix/mcg)
+[![npm version](https://badge.fury.io/js/%40anephenix%2Fmcg.svg)](https://badge.fury.io/js/%40anephenix%2Fmcg) [![Node.js CI](https://github.com/anephenix/mcg/actions/workflows/node.js.yml/badge.svg)](https://github.com/anephenix/mcg/actions/workflows/node.js.yml) [![Socket Badge](https://socket.dev/api/badge/npm/package/@anephenix/mcg)](https://socket.dev/npm/package/@anephenix/mcg)
 
 A Node.js library and CLI for generating Objection.js Models and their supporting files. It helps to save time creating Models and their migrations, so that you can focus on implementing the business logic for your Node.js server-side project.
 
