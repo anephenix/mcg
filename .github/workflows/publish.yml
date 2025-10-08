@@ -44,6 +44,9 @@ jobs:
             - name: Install dependencies
               run: npm install
 
+            - name: Lint package
+              run: npm run lint:package
+
             - name: Publish to npm
               run: npm publish
               env:

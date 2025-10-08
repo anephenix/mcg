@@ -7,16 +7,24 @@
 	"scripts": {
 		"cover": "cross-env NODE_ENV=test npx nyc --reporter=lcov npm t",
 		"lint": "npx eslint .",
+		"lint:package": "npx publint",
 		"prepare-patch-release": "npm run size && npm run update-changelog && git add CHANGELOG.md && git commit -m \"Updated changelog\" && npm version patch",
 		"publish-patch-release": "npm run prepare-patch-release && git push origin master && git push --tags",
 		"size": "size-limit",
 		"test": "cross-env NODE_ENV=test npx mocha --require ts-node/register --extensions ts,tsx test/* --exclude=test/data/* --test",
 		"update-changelog": "node scripts/update-changelog.js"
 	},
+	"type": "commonjs",
 	"keywords": [
 		"objection",
 		"model",
 		"generator"
+	],
+	"files": [
+		"bin",
+		"lib",
+		"index.js",
+		"README.md"
 	],
 	"husky": {
 		"hooks": {
@@ -40,6 +48,7 @@
 		"mocha": "^11.0.1",
 		"nyc": "^17.1.0",
 		"prettier": "^3.4.2",
+		"publint": "^0.3.14",
 		"size-limit": "^11.1.6",
 		"size-limit-preset-node-lib": "^0.4.0",
 		"ts-node": "^10.9.2",
