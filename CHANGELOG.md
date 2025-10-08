@@ -1,5 +1,14 @@
 # CHANGELOG
 
+### 0.0.15 - Wednesday 8th October, 2025
+
+- Added publint to verify the package.json and some tweaks
+- Added publint to verify the package.json and some tweaks
+- Merge pull request #147 from anephenix/dependabot/npm_and_yarn/eslint-9.37.0
+- Merge pull request #146 from anephenix/dependabot/npm_and_yarn/eslint/js-9.37.0
+- Bump eslint from 9.36.0 to 9.37.0
+- Bump @eslint/js from 9.36.0 to 9.37.0
+
 ### 0.0.14 - Monday 6th October, 2025
 
 - Updated the package-lock.json file
