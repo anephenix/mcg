@@ -12,7 +12,8 @@
 		"publish-patch-release": "npm run prepare-patch-release && git push origin master && git push --tags",
 		"size": "size-limit",
 		"test": "cross-env NODE_ENV=test npx mocha --require ts-node/register --extensions ts,tsx test/* --exclude=test/data/* --test",
-		"update-changelog": "node scripts/update-changelog.js"
+		"update-changelog": "node scripts/update-changelog.js",
+		"prepare": "husky"
 	},
 	"type": "commonjs",
 	"keywords": [
