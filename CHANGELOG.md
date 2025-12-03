@@ -1,5 +1,49 @@
 # CHANGELOG
 
+### 0.0.16 - Wednesday 3rd December, 2025
+
+- Updated license
+- Updated dependencies
+- Merge pull request #168 from anephenix/dependabot/npm_and_yarn/prettier-3.7.4
+- Bump prettier from 3.7.3 to 3.7.4
+- Merge pull request #166 from anephenix/dependabot/npm_and_yarn/eslint/eslintrc-3.3.3
+- Merge pull request #167 from anephenix/dependabot/npm_and_yarn/prettier-3.7.3
+- Bump prettier from 3.7.1 to 3.7.3
+- Bump @eslint/eslintrc from 3.3.1 to 3.3.3
+- Merge pull request #164 from anephenix/dependabot/npm_and_yarn/prettier-3.7.1
+- Bump prettier from 3.7.0 to 3.7.1
+- Merge pull request #163 from anephenix/dependabot/npm_and_yarn/prettier-3.7.0
+- Bump prettier from 3.6.2 to 3.7.0
+- Merge pull request #162 from anephenix/dependabot/npm_and_yarn/eslint-plugin-jest-29.2.1
+- Bump eslint-plugin-jest from 29.2.0 to 29.2.1
+- Merge pull request #161 from anephenix/dependabot/npm_and_yarn/eslint-plugin-jest-29.2.0
+- Updated dependencies
+- Bump eslint-plugin-jest from 29.1.0 to 29.2.0
+- Merge pull request #160 from anephenix/dependabot/npm_and_yarn/glob-10.5.0
+- Bump glob from 10.4.5 to 10.5.0
+- Merge pull request #159 from anephenix/dependabot/npm_and_yarn/js-yaml-3.14.2
+- Bump js-yaml from 3.14.1 to 3.14.2
+- Merge pull request #158 from anephenix/dependabot/npm_and_yarn/eslint-plugin-jest-29.1.0
+- Bump eslint-plugin-jest from 29.0.1 to 29.1.0
+- Merge pull request #157 from anephenix/dependabot/npm_and_yarn/mocha-11.7.5
+- Bump mocha from 11.7.4 to 11.7.5
+- Merge pull request #154 from anephenix/dependabot/npm_and_yarn/eslint-9.39.1
+- Merge pull request #156 from anephenix/dependabot/npm_and_yarn/globals-16.5.0
+- Bump globals from 16.4.0 to 16.5.0
+- Bump eslint from 9.38.0 to 9.39.1
+- Merge pull request #153 from anephenix/dependabot/npm_and_yarn/commander-14.0.2
+- Bump commander from 14.0.1 to 14.0.2
+- Merge pull request #152 from anephenix/dependabot/npm_and_yarn/babel/preset-env-7.28.5
+- Merge pull request #151 from anephenix/dependabot/npm_and_yarn/babel/eslint-parser-7.28.5
+- Bump @babel/preset-env from 7.28.3 to 7.28.5
+- Bump @babel/eslint-parser from 7.28.4 to 7.28.5
+- Merge pull request #150 from anephenix/dependabot/npm_and_yarn/eslint-9.38.0
+- Merge pull request #149 from anephenix/dependabot/npm_and_yarn/eslint/js-9.38.0
+- Merge pull request #148 from anephenix/dependabot/npm_and_yarn/publint-0.3.15
+- Bump eslint from 9.37.0 to 9.38.0
+- Bump @eslint/js from 9.37.0 to 9.38.0
+- Bump publint from 0.3.14 to 0.3.15
+
 ### 0.0.15 - Wednesday 8th October, 2025
 
 - Added publint to verify the package.json and some tweaks
