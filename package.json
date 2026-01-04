@@ -16,6 +16,14 @@
 		"prepare": "husky"
 	},
 	"type": "commonjs",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/anephenix/mcg.git"
+	},
+	"homepage": "https://github.com/anephenix/mcg",
+	"bugs": {
+		"url": "https://github.com/anephenix/mcg/issues"
+	},
 	"keywords": [
 		"objection",
 		"model",

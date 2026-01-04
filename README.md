@@ -76,4 +76,4 @@ const mcg = require('@anephenix/mcg');
 
 ### License and Credits
 
-&copy;2025 Anephenix Ltd. MCG is licensed under the MIT license.
+&copy;2026 Anephenix Ltd. MCG is licensed under the MIT license.
