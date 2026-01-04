@@ -1,5 +1,33 @@
 # CHANGELOG
 
+### 0.0.17 - Sunday 4th January, 2026
+
+- Tweaks for new publish workflow
+- Updated dependencies
+- Merge pull request #179 from anephenix/dependabot/npm_and_yarn/globals-17.0.0
+- Bump globals from 16.5.0 to 17.0.0
+- Merge pull request #178 from anephenix/dependabot/npm_and_yarn/eslint-plugin-jest-29.12.0
+- Bump eslint-plugin-jest from 29.11.2 to 29.12.0
+- Merge pull request #177 from anephenix/dependabot/npm_and_yarn/eslint-plugin-jest-29.11.2
+- Bump eslint-plugin-jest from 29.11.1 to 29.11.2
+- Merge pull request #176 from anephenix/dependabot/npm_and_yarn/eslint-plugin-jest-29.11.1
+- Updated dependencies
+- Bump eslint-plugin-jest from 29.11.0 to 29.11.1
+- Merge pull request #175 from anephenix/dependabot/npm_and_yarn/eslint-plugin-jest-29.11.0
+- Bump eslint-plugin-jest from 29.10.1 to 29.11.0
+- Merge pull request #174 from anephenix/dependabot/npm_and_yarn/eslint-plugin-jest-29.10.1
+- Bump eslint-plugin-jest from 29.9.0 to 29.10.1
+- Merge pull request #173 from anephenix/dependabot/npm_and_yarn/eslint-plugin-jest-29.9.0
+- Bump eslint-plugin-jest from 29.5.0 to 29.9.0
+- Merge pull request #170 from anephenix/dependabot/npm_and_yarn/eslint-plugin-jest-29.5.0
+- Merge pull request #171 from anephenix/dependabot/npm_and_yarn/eslint-9.39.2
+- Merge pull request #172 from anephenix/dependabot/npm_and_yarn/eslint/js-9.39.2
+- Bump @eslint/js from 9.39.1 to 9.39.2
+- Bump eslint from 9.39.1 to 9.39.2
+- Bump eslint-plugin-jest from 29.2.1 to 29.5.0
+- Merge pull request #169 from anephenix/dependabot/npm_and_yarn/publint-0.3.16
+- Bump publint from 0.3.15 to 0.3.16
+
 ### 0.0.16 - Wednesday 3rd December, 2025
 
 - Updated license
