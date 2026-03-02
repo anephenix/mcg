@@ -1,7 +1,7 @@
 // Dependencies
-const Post = require('../../models/Post');
+const Post = require("../../models/Post");
 
-describe('Post', () => {
+describe("Post", () => {
 	Post;
-	it('should do something');
+	it("should do something");
 });

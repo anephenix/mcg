@@ -1,5 +1,5 @@
-const assert = require('assert');
-const path = require('path');
+const assert = require("assert");
+const path = require("path");
 const {
 	createModelFile,
 	createMigrationFile,
@@ -7,18 +7,18 @@ const {
 	getTimestamp,
 	createTestSeedDataFile,
 	createRequiredFiles,
-} = require('../../lib/createRequiredFiles');
+} = require("../../lib/createRequiredFiles");
 const {
 	createFolderUnlessExists,
 	createRequiredFolders,
-} = require('../../lib/createRequiredFolders');
-const { stat, rmdir, readFile, mkdir } = require('../../lib/helpers');
+} = require("../../lib/createRequiredFolders");
+const { stat, rmdir, readFile, mkdir } = require("../../lib/helpers");
 
-Object.defineProperty(Date.prototype, 'YYYYMMDDHHMMSS', {
+Object.defineProperty(Date.prototype, "YYYYMMDDHHMMSS", {
 	value: function () {
 		function pad2(n) {
 			// always returns a string
-			return (n < 10 ? '0' : '') + n;
+			return (n < 10 ? "0" : "") + n;
 		}
 
 		return (
@@ -32,10 +32,10 @@ Object.defineProperty(Date.prototype, 'YYYYMMDDHHMMSS', {
 	},
 });
 
-describe('createRequiredFiles', () => {
-	const rootDir = path.join(process.cwd(), 'testApp');
-	const modelName = 'Post';
-	const tableName = 'posts';
+describe("createRequiredFiles", () => {
+	const rootDir = path.join(process.cwd(), "testApp");
+	const modelName = "Post";
+	const tableName = "posts";
 
 	before(async () => {
 		return await createFolderUnlessExists(rootDir);
@@ -48,7 +48,7 @@ describe('createRequiredFiles', () => {
 	const createRequiredFolder = async (testFolder, folders) => {
 		await createFolderUnlessExists(path.join(rootDir, testFolder));
 		return await createFolderUnlessExists(
-			path.join(rootDir, testFolder, ...folders)
+			path.join(rootDir, testFolder, ...folders),
 		);
 	};
 
@@ -59,86 +59,86 @@ describe('createRequiredFiles', () => {
 		const expectedFilePath = path.join(rootDir, ...expectedFilePathFolders);
 		const exampleFilePath = path.join(
 			process.cwd(),
-			'test',
-			'data',
-			exampleFileName
+			"test",
+			"data",
+			exampleFileName,
 		);
 		const fileCheck = await stat(expectedFilePath);
 		assert(fileCheck.isFile());
 		const fileContent = await readFile(expectedFilePath, {
-			encoding: 'utf8',
+			encoding: "utf8",
 		});
 		const expectedFileContent = await readFile(exampleFilePath, {
-			encoding: 'utf8',
+			encoding: "utf8",
 		});
 		assert.equal(fileContent, expectedFileContent);
 	};
 
-	describe('#getTimestamp', () => {
-		it('should return the timestamp identical to what Knex.js uses for migration filenames', async () => {
+	describe("#getTimestamp", () => {
+		it("should return the timestamp identical to what Knex.js uses for migration filenames", async () => {
 			const timestamp = getTimestamp();
 			assert.equal(timestamp, new Date().YYYYMMDDHHMMSS());
 		});
 	});
-	describe('#createModelFile', () => {
-		it('should create the model file for the model', async () => {
-			await createFolderUnlessExists(path.join(rootDir, 'models'));
+	describe("#createModelFile", () => {
+		it("should create the model file for the model", async () => {
+			await createFolderUnlessExists(path.join(rootDir, "models"));
 			await createModelFile({ modelName, rootDir, tableName });
 			return await compareExpectedAndActualFiles({
-				expectedFilePathFolders: ['models', 'Post.js'],
-				exampleFileName: 'modelFileExample.test.js',
+				expectedFilePathFolders: ["models", "Post.js"],
+				exampleFileName: "modelFileExample.test.js",
 			});
 		});
 	});
 
-	describe('#createMigrationFile', () => {
-		it('should create the migration file for the model table', async () => {
-			await createFolderUnlessExists(path.join(rootDir, 'migrations'));
+	describe("#createMigrationFile", () => {
+		it("should create the migration file for the model table", async () => {
+			await createFolderUnlessExists(path.join(rootDir, "migrations"));
 			await createMigrationFile({ tableName, rootDir });
 			const timestamp = getTimestamp();
 			return await compareExpectedAndActualFiles({
 				expectedFilePathFolders: [
-					'migrations',
+					"migrations",
 					`${timestamp}_create_posts_table.js`,
 				],
-				exampleFileName: 'migrationFileExample.test.js',
+				exampleFileName: "migrationFileExample.test.js",
 			});
 		});
 	});
 
-	describe('#createTestModelFile', () => {
-		it('should create the test model file for the model', async () => {
-			await createRequiredFolder('test', ['models']);
+	describe("#createTestModelFile", () => {
+		it("should create the test model file for the model", async () => {
+			await createRequiredFolder("test", ["models"]);
 			await createTestModelFile({
 				modelName,
 				rootDir,
-				testFolder: 'test',
+				testFolder: "test",
 			});
 			return await compareExpectedAndActualFiles({
-				expectedFilePathFolders: ['test', 'models', 'Post.test.js'],
-				exampleFileName: 'testModelFileExample.test.js',
+				expectedFilePathFolders: ["test", "models", "Post.test.js"],
+				exampleFileName: "testModelFileExample.test.js",
 			});
 		});
 	});
 
-	describe('#createTestSeedDataFile', () => {
-		it('should create the test data seed file for the model', async () => {
-			await createRequiredFolder('test', ['data']);
+	describe("#createTestSeedDataFile", () => {
+		it("should create the test data seed file for the model", async () => {
+			await createRequiredFolder("test", ["data"]);
 			await createTestSeedDataFile({
 				modelName,
 				rootDir,
-				testFolder: 'test',
+				testFolder: "test",
 			});
 			return await compareExpectedAndActualFiles({
-				expectedFilePathFolders: ['test', 'data', 'postData.test.js'],
-				exampleFileName: 'testSeedDataFileExample.test.js',
+				expectedFilePathFolders: ["test", "data", "postData.test.js"],
+				exampleFileName: "testSeedDataFileExample.test.js",
 			});
 		});
 	});
 
-	describe('#createRequiredFiles', () => {
-		const anotherRootDir = path.join(process.cwd(), 'secondTestApp');
-		const testFolder = 'spec';
+	describe("#createRequiredFiles", () => {
+		const anotherRootDir = path.join(process.cwd(), "secondTestApp");
+		const testFolder = "spec";
 		let expectedFiles = null;
 		let result = null;
 
@@ -150,13 +150,13 @@ describe('createRequiredFiles', () => {
 			});
 			const timeStamp = getTimestamp();
 			expectedFiles = [
-				'/models/Post.js',
+				"/models/Post.js",
 				`/migrations/${timeStamp}_create_posts_table.js`,
 				`/${testFolder}/models/Post.test.js`,
 				`/${testFolder}/data/postData.test.js`,
 			];
 			result = await createRequiredFiles({
-				modelName: 'Post',
+				modelName: "Post",
 				rootDir: anotherRootDir,
 				testFolder,
 				tableName,
@@ -167,22 +167,22 @@ describe('createRequiredFiles', () => {
 			await rmdir(anotherRootDir, { recursive: true });
 		});
 
-		it('should create the required files for the model', async () => {
+		it("should create the required files for the model", async () => {
 			for await (const file of expectedFiles) {
 				await stat(anotherRootDir + file);
 			}
 		});
-		it('should support creating those files in a custom root directory', () => {
+		it("should support creating those files in a custom root directory", () => {
 			assert.notEqual(rootDir, anotherRootDir);
 			assert.notEqual(process.cwd(), anotherRootDir);
-			assert(anotherRootDir.match('secondTestApp') !== null);
+			assert(anotherRootDir.match("secondTestApp") !== null);
 		});
-		it('should support creating the test files in a custom test folder', () => {
+		it("should support creating the test files in a custom test folder", () => {
 			for (const file of expectedFiles) {
-				assert(file.match('test/') === null);
+				assert(file.match("test/") === null);
 			}
 		});
-		it('should return a list of the files created', () => {
+		it("should return a list of the files created", () => {
 			assert(result instanceof Array);
 			assert.equal(result.length, 4);
 			for (const file of expectedFiles) {

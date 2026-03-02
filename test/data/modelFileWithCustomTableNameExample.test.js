@@ -1,10 +1,10 @@
 // Dependencies
-const { Model } = require('objection');
+const { Model } = require("objection");
 
 class Post extends Model {
 	/* Always define the table in the db that the model refers to */
 	static get tableName() {
-		return 'blog_posts';
+		return "blog_posts";
 	}
 
 	// Assume timestamps are always present
@@ -25,16 +25,16 @@ class Post extends Model {
 	/* This defines the data schema for the model */
 	static get jsonSchema() {
 		return {
-			type: 'object',
+			type: "object",
 			required: [],
 			properties: {
-				id: { type: 'string', readOnly: true },
+				id: { type: "string", readOnly: true },
 				created_at: {
-					type: 'string',
-					format: 'date-time',
+					type: "string",
+					format: "date-time",
 					readOnly: true,
 				},
-				updated_at: { type: 'string', format: 'date-time' },
+				updated_at: { type: "string", format: "date-time" },
 			},
 		};
 	}
