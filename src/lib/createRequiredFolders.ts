@@ -6,7 +6,6 @@ export const createFolderUnlessExists = async (
 ): Promise<void> => {
 	try {
 		const checkedFolder = await stat(folderPath);
-		// @ts-expect-error: checkedFolder may not have isDirectory if not properly typed
 		if (checkedFolder.isDirectory?.()) return;
 	} catch {
 		await mkdir(folderPath);
