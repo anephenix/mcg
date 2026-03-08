@@ -2,9 +2,23 @@
 	"name": "@anephenix/mcg",
 	"version": "0.0.17",
 	"description": "Model Component Generator for Objection.js",
-	"main": "index.js",
-	"bin": "./bin/mcg",
+	"type": "module",
+	"exports": {
+		".": {
+			"import": "./dist/index.js",
+			"require": "./dist/index.js"
+		}
+	},
+	"types": "./dist/index.d.ts",
+	"files": [
+		"bin",
+		"lib",
+		"index.js",
+		"README.md"
+	],
+	"bin": "./dist/bin/mcg",
 	"scripts": {
+		"build": "tsc --project tsconfig.json",
 		"cover": "cross-env NODE_ENV=test npx nyc --reporter=lcov npm t",
 		"format": "npx @biomejs/biome check . --write",
 		"lint": "npx @biomejs/biome check .",
@@ -12,11 +26,14 @@
 		"prepare-patch-release": "npm run size && npm run update-changelog && git add CHANGELOG.md && git commit -m \"Updated changelog\" && npm version patch",
 		"publish-patch-release": "npm run prepare-patch-release && git push origin master && git push --tags",
 		"size": "size-limit",
-		"test": "cross-env NODE_ENV=test npx mocha --require ts-node/register --extensions ts,tsx test/* --exclude=test/data/* --test",
-		"update-changelog": "node scripts/update-changelog.js",
-		"prepare": "husky"
+		"test": "cross-env NODE_ENV=test npx vitest --run --exclude=test/data/* --no-file-parallelism",
+		"test:build:commonjs": "node e2e/test-commonjs.cjs",
+		"test:build:esm": "node e2e/test-esm.js",
+		"test:e2e": "npm run build && npm run test:build:commonjs && npm run test:build:esm",
+		"update-changelog": "node --experimental-strip-types scripts/update-changelog.ts",
+		"prepare": "husky",
+		"watch": "tsc --project tsconfig.json --watch"
 	},
-	"type": "commonjs",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/anephenix/mcg.git"
@@ -30,12 +47,6 @@
 		"model",
 		"generator"
 	],
-	"files": [
-		"bin",
-		"lib",
-		"index.js",
-		"README.md"
-	],
 	"husky": {
 		"hooks": {
 			"pre-commit": "npm run lint && npm t && npm run size"
@@ -47,6 +58,7 @@
 		"@biomejs/biome": "2.4.4",
 		"@size-limit/file": "^12.0.0",
 		"@types/mocha": "^10.0.10",
+		"@types/pluralize": "^0.0.33",
 		"cross-env": "^10.0.0",
 		"globals": "^17.0.0",
 		"husky": "^9.1.7",
@@ -56,7 +68,8 @@
 		"size-limit": "^12.0.0",
 		"size-limit-node-esbuild": "^0.4.0",
 		"ts-node": "^10.9.2",
-		"typescript": "^5.7.2"
+		"typescript": "^5.7.2",
+		"vitest": "^4.0.18"
 	},
 	"dependencies": {
 		"commander": "^14.0.0",
