@@ -29,5 +29,6 @@ jobs:
                   cache: 'npm'
 
             - run: npm i
+            - run: npm run build
             - run: npm run cover
             - run: touch mcg.config.js
