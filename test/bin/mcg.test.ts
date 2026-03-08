@@ -1,5 +1,5 @@
-import assert from "assert";
-import * as path from "path";
+import assert from "node:assert";
+import * as path from "node:path";
 import { describe, it } from "vitest";
 import { getTimestamp } from "../../src/lib/createRequiredFiles";
 import {

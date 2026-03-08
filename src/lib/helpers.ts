@@ -1,4 +1,4 @@
-import { exec as execType } from "child_process";
+import { exec as execType } from "node:child_process";
 import {
 	mkdir as mkdirType,
 	readFile as readFileType,
@@ -7,9 +7,9 @@ import {
 	stat as statType,
 	unlink as unlinkType,
 	writeFile as writeFileType,
-} from "fs";
-import { pipeline as streamPipelineType } from "stream";
-import { promisify } from "util";
+} from "node:fs";
+import { pipeline as streamPipelineType } from "node:stream";
+import { promisify } from "node:util";
 
 // Promisified functions
 export const exec = promisify(execType);

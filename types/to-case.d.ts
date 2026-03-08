@@ -1,1 +1,1 @@
-declare module 'to-case';
+declare module "to-case";

@@ -1,5 +1,5 @@
-import pluralize from 'pluralize';
-import to from 'to-case';
+import pluralize from "pluralize";
+import to from "to-case";
 
 const testSeedDataFileTemplate = (modelName: string): string => {
 	const variableName = pluralize(to.camel(modelName));

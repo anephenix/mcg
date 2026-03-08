@@ -1,5 +1,5 @@
+import path from 'node:path';
 import to from 'to-case';
-import path from 'path';
 
 const testModelFileTemplate = (modelName: string): string => {
 	const modelFileName = to.pascal(modelName);

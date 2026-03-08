@@ -8,7 +8,7 @@ import packageJson from "../../package.json" with { type: "json" };
 import main from "../index.js";
 
 // Helper types
-type ConfigFile = Record<string, any>;
+type ConfigFile = Record<string, unknown>;
 
 // Helper functions
 const exists = util.promisify(fs.exists);
@@ -33,7 +33,9 @@ const mainAction = async (modelName: string) => {
 
 	const filesCreated = await main(modelName, mainDir, testFolder, tableName);
 	console.log("Created files:");
-	filesCreated.forEach((fc: string) => console.log(fc));
+	filesCreated.forEach((fc: string) => {
+		console.log(fc);
+	});
 };
 
 const programSetup = () => {

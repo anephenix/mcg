@@ -1,13 +1,13 @@
-import path from 'path';
-import { stat, mkdir } from './helpers.js';
+import path from "node:path";
+import { mkdir, stat } from "./helpers.js";
 
 export const createFolderUnlessExists = async (
-	folderPath: string
+	folderPath: string,
 ): Promise<void> => {
 	try {
 		const checkedFolder = await stat(folderPath);
-		// @ts-ignore: checkedFolder may not have isDirectory if not properly typed
-		if (checkedFolder.isDirectory && checkedFolder.isDirectory()) return;
+		// @ts-expect-error: checkedFolder may not have isDirectory if not properly typed
+		if (checkedFolder.isDirectory?.()) return;
 	} catch {
 		await mkdir(folderPath);
 	}
@@ -27,11 +27,11 @@ export const createRequiredFolders = async ({
 	testFolder,
 }: CreateRequiredFoldersOptions): Promise<void> => {
 	const folderPaths: string[][] = [
-		['models'],
-		['migrations'],
+		["models"],
+		["migrations"],
 		[testFolder],
-		[testFolder, 'models'],
-		[testFolder, 'data'],
+		[testFolder, "models"],
+		[testFolder, "data"],
 	];
 
 	for await (const folderPath of folderPaths) {

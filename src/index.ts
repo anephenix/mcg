@@ -1,6 +1,6 @@
-import pluralize from 'pluralize';
-import to from 'to-case';
-import { createRequiredFolders, createRequiredFiles } from './lib/index.js';
+import pluralize from "pluralize";
+import to from "to-case";
+import { createRequiredFiles, createRequiredFolders } from "./lib/index.js";
 
 export interface MainOptions {
 	modelName: string;
@@ -12,8 +12,8 @@ export interface MainOptions {
 const main = async (
 	modelName: string,
 	rootDir: string = process.cwd(),
-	testFolder: string = 'test',
-	tableName?: string | undefined
+	testFolder: string = "test",
+	tableName?: string | undefined,
 ): Promise<ReturnType<typeof createRequiredFiles>> => {
 	await createRequiredFolders({ rootDir, testFolder });
 	if (!tableName) tableName = pluralize(to.snake(modelName));
