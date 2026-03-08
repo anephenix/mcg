@@ -1,14 +1,15 @@
-import { promisify } from 'util';
-import { pipeline as streamPipelineType } from 'stream';
-import { exec as execType } from 'child_process';
+import { exec as execType } from "child_process";
 import {
-	readFile as readFileType,
-	writeFile as writeFileType,
 	mkdir as mkdirType,
-	unlink as unlinkType,
+	readFile as readFileType,
+	rmdir as rmdirType,
 	rm as rmType,
 	stat as statType,
-} from 'fs';
+	unlink as unlinkType,
+	writeFile as writeFileType,
+} from "fs";
+import { pipeline as streamPipelineType } from "stream";
+import { promisify } from "util";
 
 // Promisified functions
 export const exec = promisify(execType);
@@ -17,5 +18,6 @@ export const writeFile = promisify(writeFileType);
 export const mkdir = promisify(mkdirType);
 export const unlink = promisify(unlinkType);
 export const rm = promisify(rmType);
+export const rmdir = promisify(rmdirType);
 export const stat = promisify(statType);
 export const streamPipeline = promisify(streamPipelineType);

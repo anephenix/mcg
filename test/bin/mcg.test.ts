@@ -1,16 +1,16 @@
-import * as assert from 'assert';
-import * as path from 'path';
+import assert from "assert";
+import * as path from "path";
+import { describe, it } from "vitest";
+import { getTimestamp } from "../../src/lib/createRequiredFiles";
 import {
 	exec,
 	mkdir,
+	readFile,
 	rmdir,
 	stat,
 	unlink,
-	readFile,
 	writeFile,
-} from '../../src/lib/helpers';
-import { getTimestamp } from '../../src/lib/createRequiredFiles';
-import { describe, it } from 'vitest';
+} from "../../src/lib/helpers";
 
 interface CompareExpectedAndActualFilesOptions {
 	rootDir: string;
@@ -26,30 +26,30 @@ const compareExpectedAndActualFiles = async ({
 	const expectedFilePath = path.join(rootDir, ...expectedFilePathFolders);
 	const exampleFilePath = path.join(
 		process.cwd(),
-		'test',
-		'data',
-		exampleFileName
+		"test",
+		"data",
+		exampleFileName,
 	);
 	const fileCheck = await stat(expectedFilePath);
 	assert(fileCheck.isFile());
 	const fileContent = await readFile(expectedFilePath, {
-		encoding: 'utf8',
+		encoding: "utf8",
 	});
 	const expectedFileContent = await readFile(exampleFilePath, {
-		encoding: 'utf8',
+		encoding: "utf8",
 	});
 	assert.equal(fileContent, expectedFileContent);
 };
 
-describe('mcg', () => {
-	it('should generate the files and folders for a new model', async () => {
-		const command = './dist/bin/mcg Post';
+describe("mcg", () => {
+	it("should generate the files and folders for a new model", async () => {
+		const command = "./dist/bin/mcg Post";
 		const { stdout } = await exec(command);
 		const timestamp = getTimestamp();
 		const filesToCheck = [
-			'test/models/Post.test.js',
-			'test/data/postData.test.js',
-			'models/Post.js',
+			"test/models/Post.test.js",
+			"test/data/postData.test.js",
+			"models/Post.js",
 			`migrations/${timestamp}_create_posts_table.js`,
 		];
 		for await (const fileToCheck of filesToCheck) {
@@ -59,24 +59,24 @@ describe('mcg', () => {
 			assert(stdout.match(filePath) !== null);
 			await unlink(filePath);
 		}
-		await rmdir(path.join(process.cwd(), 'models'), { recursive: true });
-		await rmdir(path.join(process.cwd(), 'migrations'), {
+		await rmdir(path.join(process.cwd(), "models"), { recursive: true });
+		await rmdir(path.join(process.cwd(), "migrations"), {
 			recursive: true,
 		});
-		await rmdir(path.join(process.cwd(), 'test', 'models'), {
+		await rmdir(path.join(process.cwd(), "test", "models"), {
 			recursive: true,
 		});
 	});
 
-	it('should generate the test files in a custom folder, if a custom test folder is passed', async () => {
-		const customTestFolder = 'spec';
+	it("should generate the test files in a custom folder, if a custom test folder is passed", async () => {
+		const customTestFolder = "spec";
 		const command = `./dist/bin/mcg Post --testFolder ${customTestFolder}`;
 		const { stdout } = await exec(command);
 		const timestamp = getTimestamp();
 		const filesToCheck = [
 			`${customTestFolder}/models/Post.test.js`,
 			`${customTestFolder}/data/postData.test.js`,
-			'models/Post.js',
+			"models/Post.js",
 			`migrations/${timestamp}_create_posts_table.js`,
 		];
 		for await (const fileToCheck of filesToCheck) {
@@ -86,8 +86,8 @@ describe('mcg', () => {
 			assert(stdout.match(filePath) !== null);
 			await unlink(filePath);
 		}
-		await rmdir(path.join(process.cwd(), 'models'), { recursive: true });
-		await rmdir(path.join(process.cwd(), 'migrations'), {
+		await rmdir(path.join(process.cwd(), "models"), { recursive: true });
+		await rmdir(path.join(process.cwd(), "migrations"), {
 			recursive: true,
 		});
 		await rmdir(path.join(process.cwd(), customTestFolder), {
@@ -95,16 +95,16 @@ describe('mcg', () => {
 		});
 	});
 
-	it('should generate the files in a custom main directory, if a custom main directory is passed', async () => {
-		const mainDir = path.join(process.cwd(), 'sixthApp');
+	it("should generate the files in a custom main directory, if a custom main directory is passed", async () => {
+		const mainDir = path.join(process.cwd(), "sixthApp");
 		await mkdir(mainDir);
 		const command = `./dist/bin/mcg Post --mainDir ${mainDir}`;
 		const { stdout } = await exec(command);
 		const timestamp = getTimestamp();
 		const filesToCheck = [
-			'test/models/Post.test.js',
-			'test/data/postData.test.js',
-			'models/Post.js',
+			"test/models/Post.test.js",
+			"test/data/postData.test.js",
+			"models/Post.js",
 			`migrations/${timestamp}_create_posts_table.js`,
 		];
 		for await (const fileToCheck of filesToCheck) {
@@ -117,17 +117,17 @@ describe('mcg', () => {
 		await rmdir(path.join(mainDir), { recursive: true });
 	});
 
-	it('should read any custom testDir and mainDir settings from a config file, if a config file is present', async () => {
-		const configFilePath = path.join(process.cwd(), 'mcg.config.js');
+	it("should read any custom testDir and mainDir settings from a config file, if a config file is present", async () => {
+		const configFilePath = path.join(process.cwd(), "mcg.config.cjs");
 		const configFileData = `module.exports = { testFolder: 'spec' };`;
 		await writeFile(configFilePath, configFileData);
-		const command = './dist/bin/mcg Post';
+		const command = "./dist/bin/mcg Post";
 		const { stdout } = await exec(command);
 		const timestamp = getTimestamp();
 		const filesToCheck = [
-			'spec/models/Post.test.js',
-			'spec/data/postData.test.js',
-			'models/Post.js',
+			"spec/models/Post.test.js",
+			"spec/data/postData.test.js",
+			"models/Post.js",
 			`migrations/${timestamp}_create_posts_table.js`,
 		];
 		for await (const fileToCheck of filesToCheck) {
@@ -137,26 +137,26 @@ describe('mcg', () => {
 			assert(stdout.match(filePath) !== null);
 			await unlink(filePath);
 		}
-		await rmdir(path.join(process.cwd(), 'models'), { recursive: true });
-		await rmdir(path.join(process.cwd(), 'migrations'), {
+		await rmdir(path.join(process.cwd(), "models"), { recursive: true });
+		await rmdir(path.join(process.cwd(), "migrations"), {
 			recursive: true,
 		});
-		await rmdir(path.join(process.cwd(), 'spec'), {
+		await rmdir(path.join(process.cwd(), "spec"), {
 			recursive: true,
 		});
 		await unlink(configFilePath);
 	});
 
-	describe('custom tableName', () => {
-		it('should allow the user to specify a custom table name for the model', async () => {
-			const mainDir = path.join(process.cwd(), 'seventhApp');
+	describe("custom tableName", () => {
+		it("should allow the user to specify a custom table name for the model", async () => {
+			const mainDir = path.join(process.cwd(), "seventhApp");
 			await mkdir(mainDir);
-			const tableName = 'blog_posts';
+			const tableName = "blog_posts";
 			const command = `./dist/bin/mcg Post --mainDir ${mainDir} --tableName ${tableName}`;
 			const { stdout } = await exec(command);
 			const timestamp = getTimestamp();
 			const filesToCheck = [
-				'models/Post.js',
+				"models/Post.js",
 				`migrations/${timestamp}_create_blog_posts_table.js`,
 			];
 			for await (const fileToCheck of filesToCheck) {
@@ -164,26 +164,23 @@ describe('mcg', () => {
 				const fileCheck = await stat(filePath);
 				assert(fileCheck.isFile());
 				assert(stdout.match(filePath) !== null);
-				if (fileToCheck === 'models/Post.js') {
+				if (fileToCheck === "models/Post.js") {
 					await compareExpectedAndActualFiles({
 						rootDir: mainDir,
-						expectedFilePathFolders: ['models', 'Post.js'],
-						exampleFileName:
-							'modelFileWithCustomTableNameExample.test.js',
+						expectedFilePathFolders: ["models", "Post.js"],
+						exampleFileName: "modelFileWithCustomTableNameExample.test.js",
 					});
 				}
 				if (
-					fileToCheck ===
-					`migrations/${timestamp}_create_blog_posts_table.js`
+					fileToCheck === `migrations/${timestamp}_create_blog_posts_table.js`
 				) {
 					await compareExpectedAndActualFiles({
 						rootDir: mainDir,
 						expectedFilePathFolders: [
-							'migrations',
+							"migrations",
 							`${timestamp}_create_blog_posts_table.js`,
 						],
-						exampleFileName:
-							'migrationFileWithCustomTableNameExample.test.js',
+						exampleFileName: "migrationFileWithCustomTableNameExample.test.js",
 					});
 				}
 
@@ -193,14 +190,14 @@ describe('mcg', () => {
 		});
 	});
 
-	describe('with attributes passed', () => {
+	describe("with attributes passed", () => {
 		it(
-			'should generate a migration file that specifies what fields to put in the model table'
+			"should generate a migration file that specifies what fields to put in the model table",
 		);
-		it('should generate a model file with a jsonSchema property');
-		it('should define properties for the test seed data file');
+		it("should generate a model file with a jsonSchema property");
+		it("should define properties for the test seed data file");
 		it(
-			'should define things to test in the model test file, such as validations'
+			"should define things to test in the model test file, such as validations",
 		);
 	});
 	// Q - how to pass attributes in a way that can support jsonSchema, migration, test seed and test code?
