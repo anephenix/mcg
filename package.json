@@ -18,6 +18,7 @@
 	"bin": "./dist/bin/mcg",
 	"scripts": {
 		"build": "tsc --project tsconfig.json",
+		"postbuild": "echo \"#!/usr/bin/env node\nimport('./mcg.js');\" > dist/bin/mcg && chmod +x dist/bin/mcg",
 		"cover": "cross-env NODE_ENV=test npx vitest --run --exclude=test/data/* --no-file-parallelism --coverage",
 		"format": "npx @biomejs/biome check . --write",
 		"lint": "npx @biomejs/biome check .",
