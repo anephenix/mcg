@@ -11,9 +11,8 @@
 	},
 	"types": "./dist/index.d.ts",
 	"files": [
-		"bin",
-		"lib",
-		"index.js",
+		"dist",
+		"types",
 		"README.md"
 	],
 	"bin": "./dist/bin/mcg",
