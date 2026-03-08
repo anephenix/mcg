@@ -1,6 +1,9 @@
-import { execSync } from "child_process";
-import { readFileSync, writeFileSync } from "fs";
-import { join } from "path";
+import { execSync } from "node:child_process";
+import { readFileSync, writeFileSync } from "node:fs";
+import { join } from "node:path";
+
+const __dirname = new URL(".", import.meta.url).pathname;
+// This script updates the CHANGELOG.md file with the latest version and commit messages.
 
 // Paths
 const packageJsonPath = join(__dirname, "../package.json");

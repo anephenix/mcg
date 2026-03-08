@@ -1,4 +1,12 @@
-const template = ({ modelName, tableName }) => {
+export interface ModelFileTemplateArgs {
+	modelName: string;
+	tableName: string;
+}
+
+const modelFileTemplate = ({
+	modelName,
+	tableName,
+}: ModelFileTemplateArgs): string => {
 	return `// Dependencies
 const { Model } = require("objection");
 
@@ -45,4 +53,4 @@ module.exports = ${modelName};
 `;
 };
 
-module.exports = template;
+export default modelFileTemplate;

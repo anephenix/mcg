@@ -1,51 +1,59 @@
-// Dependencies
-const assert = require("assert");
-const path = require("path");
-const mcg = require("../index");
-const { stat, rmdir, mkdir, readFile } = require("../lib/helpers");
-const { getTimestamp } = require("../lib/createRequiredFiles");
-const {
-	modelFileTemplate,
+import * as path from "node:path";
+import { afterAll, beforeAll, describe, expect, it } from "vitest";
+// NOTE - start her
+import mcg from "../dist/index";
+import { getTimestamp } from "../src/lib/createRequiredFiles";
+import { mkdir, readFile, rmdir, stat } from "../src/lib/helpers";
+import {
 	migrationFileTemplate,
+	modelFileTemplate,
 	testModelFileTemplate,
 	testSeedDataFileTemplate,
-} = require("../lib/templates");
+} from "../src/lib/templates";
 
 describe("main", () => {
 	const rootDir = path.join(process.cwd(), "testApp");
-	before(async () => {
+	beforeAll(async () => {
 		await mkdir(rootDir);
 		return await mcg("Post", rootDir);
 	});
 
-	after(async () => {
-		return await rmdir(rootDir, { recursive: true });
-	});
+	afterAll(async () => await rmdir(rootDir, { recursive: true }));
 
-	const checkFileExists = async (filePath) => {
+	const checkFileExists = async (filePath: string): Promise<void> => {
 		const check = await stat(filePath);
-		assert(check.isFile());
+		expect(check.isFile()).toBe(true);
 	};
 
-	const checkDirectoryExists = async (directories) => {
+	const checkDirectoryExists = async (directories: string[]): Promise<void> => {
 		const fullPath = path.join(rootDir, ...directories);
 		const check = await stat(fullPath);
-		assert(check.isDirectory());
+		expect(check.isDirectory()).toBe(true);
 	};
+
+	interface FileAndContentCheck {
+		filePath: string;
+		expectedContent: string;
+	}
 
 	const checkFileExistsAndContentIsExpected = async ({
 		filePath,
 		expectedContent,
-	}) => {
+	}: FileAndContentCheck): Promise<void> => {
 		await checkFileExists(filePath);
 		const fileContent = await readFile(filePath);
-		assert.equal(fileContent, expectedContent);
+		expect(fileContent.toString("utf8")).toBe(expectedContent);
 	};
+
+	interface FileAndContentCheckWrapper {
+		filePathElements: string[];
+		expectedContent: string;
+	}
 
 	const fileAndContentCheckWrapper = async ({
 		filePathElements,
 		expectedContent,
-	}) => {
+	}: FileAndContentCheckWrapper): Promise<void> => {
 		const filePath = path.join(rootDir, ...filePathElements);
 		await checkFileExistsAndContentIsExpected({
 			filePath,

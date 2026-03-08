@@ -1,22 +1,29 @@
-const assert = require("assert");
-const path = require("path");
-const {
-	createModelFile,
+import * as path from "node:path";
+import { afterAll, beforeAll, describe, expect, it } from "vitest";
+import {
 	createMigrationFile,
-	createTestModelFile,
-	getTimestamp,
-	createTestSeedDataFile,
+	createModelFile,
 	createRequiredFiles,
-} = require("../../lib/createRequiredFiles");
-const {
+	createTestModelFile,
+	createTestSeedDataFile,
+	getTimestamp,
+} from "../../src/lib/createRequiredFiles";
+import {
 	createFolderUnlessExists,
 	createRequiredFolders,
-} = require("../../lib/createRequiredFolders");
-const { stat, rmdir, readFile, mkdir } = require("../../lib/helpers");
+} from "../../src/lib/createRequiredFolders";
+import { mkdir, readFile, rmdir, stat } from "../../src/lib/helpers";
+
+// Add a type for the custom Date prototype method
+declare global {
+	interface Date {
+		YYYYMMDDHHMMSS(): string;
+	}
+}
 
 Object.defineProperty(Date.prototype, "YYYYMMDDHHMMSS", {
 	value: function () {
-		function pad2(n) {
+		function pad2(n: number): string {
 			// always returns a string
 			return (n < 10 ? "0" : "") + n;
 		}
@@ -37,25 +44,33 @@ describe("createRequiredFiles", () => {
 	const modelName = "Post";
 	const tableName = "posts";
 
-	before(async () => {
+	beforeAll(async () => {
 		return await createFolderUnlessExists(rootDir);
 	});
 
-	after(async () => {
-		return await rmdir(rootDir, { recursive: true });
+	afterAll(async () => {
+		await rmdir(rootDir, { recursive: true });
 	});
 
-	const createRequiredFolder = async (testFolder, folders) => {
+	const createRequiredFolder = async (
+		testFolder: string,
+		folders: string[],
+	): Promise<void> => {
 		await createFolderUnlessExists(path.join(rootDir, testFolder));
 		return await createFolderUnlessExists(
 			path.join(rootDir, testFolder, ...folders),
 		);
 	};
 
+	interface CompareExpectedAndActualFilesOptions {
+		expectedFilePathFolders: string[];
+		exampleFileName: string;
+	}
+
 	const compareExpectedAndActualFiles = async ({
 		expectedFilePathFolders,
 		exampleFileName,
-	}) => {
+	}: CompareExpectedAndActualFilesOptions): Promise<void> => {
 		const expectedFilePath = path.join(rootDir, ...expectedFilePathFolders);
 		const exampleFilePath = path.join(
 			process.cwd(),
@@ -64,20 +79,20 @@ describe("createRequiredFiles", () => {
 			exampleFileName,
 		);
 		const fileCheck = await stat(expectedFilePath);
-		assert(fileCheck.isFile());
+		expect(fileCheck.isFile()).toBe(true);
 		const fileContent = await readFile(expectedFilePath, {
 			encoding: "utf8",
 		});
 		const expectedFileContent = await readFile(exampleFilePath, {
 			encoding: "utf8",
 		});
-		assert.equal(fileContent, expectedFileContent);
+		expect(fileContent).toBe(expectedFileContent);
 	};
 
 	describe("#getTimestamp", () => {
 		it("should return the timestamp identical to what Knex.js uses for migration filenames", async () => {
 			const timestamp = getTimestamp();
-			assert.equal(timestamp, new Date().YYYYMMDDHHMMSS());
+			expect(timestamp).toBe(new Date().YYYYMMDDHHMMSS());
 		});
 	});
 	describe("#createModelFile", () => {
@@ -139,10 +154,10 @@ describe("createRequiredFiles", () => {
 	describe("#createRequiredFiles", () => {
 		const anotherRootDir = path.join(process.cwd(), "secondTestApp");
 		const testFolder = "spec";
-		let expectedFiles = null;
-		let result = null;
+		let expectedFiles: string[] = [];
+		let result: string[] | null = null;
 
-		before(async () => {
+		beforeAll(async () => {
 			await mkdir(anotherRootDir);
 			await createRequiredFolders({
 				rootDir: anotherRootDir,
@@ -163,7 +178,7 @@ describe("createRequiredFiles", () => {
 			});
 		});
 
-		after(async () => {
+		afterAll(async () => {
 			await rmdir(anotherRootDir, { recursive: true });
 		});
 
@@ -173,20 +188,20 @@ describe("createRequiredFiles", () => {
 			}
 		});
 		it("should support creating those files in a custom root directory", () => {
-			assert.notEqual(rootDir, anotherRootDir);
-			assert.notEqual(process.cwd(), anotherRootDir);
-			assert(anotherRootDir.match("secondTestApp") !== null);
+			expect(rootDir).not.toBe(anotherRootDir);
+			expect(process.cwd()).not.toBe(anotherRootDir);
+			expect(anotherRootDir.match("testApp")).toBe(null);
 		});
 		it("should support creating the test files in a custom test folder", () => {
 			for (const file of expectedFiles) {
-				assert(file.match("test/") === null);
+				expect(file.match("test/")).toBe(null);
 			}
 		});
 		it("should return a list of the files created", () => {
-			assert(result instanceof Array);
-			assert.equal(result.length, 4);
+			expect(Array.isArray(result)).toBe(true);
+			expect(result.length).toBe(4);
 			for (const file of expectedFiles) {
-				assert(result.indexOf(anotherRootDir + file) !== -1);
+				expect(result.indexOf(anotherRootDir + file) >= 0).toBe(true);
 			}
 		});
 	});

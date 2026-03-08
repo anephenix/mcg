@@ -1,21 +1,28 @@
-const assert = require("assert");
-const path = require("path");
-const {
+import assert from "node:assert";
+import * as path from "node:path";
+import { describe, it } from "vitest";
+import { getTimestamp } from "../../src/lib/createRequiredFiles";
+import {
 	exec,
 	mkdir,
+	readFile,
 	rmdir,
 	stat,
 	unlink,
-	readFile,
 	writeFile,
-} = require("../../lib/helpers");
-const { getTimestamp } = require("../../lib/createRequiredFiles");
+} from "../../src/lib/helpers";
+
+interface CompareExpectedAndActualFilesOptions {
+	rootDir: string;
+	expectedFilePathFolders: string[];
+	exampleFileName: string;
+}
 
 const compareExpectedAndActualFiles = async ({
 	rootDir,
 	expectedFilePathFolders,
 	exampleFileName,
-}) => {
+}: CompareExpectedAndActualFilesOptions): Promise<void> => {
 	const expectedFilePath = path.join(rootDir, ...expectedFilePathFolders);
 	const exampleFilePath = path.join(
 		process.cwd(),
@@ -36,7 +43,7 @@ const compareExpectedAndActualFiles = async ({
 
 describe("mcg", () => {
 	it("should generate the files and folders for a new model", async () => {
-		const command = "./bin/mcg Post";
+		const command = "./dist/bin/mcg Post";
 		const { stdout } = await exec(command);
 		const timestamp = getTimestamp();
 		const filesToCheck = [
@@ -63,7 +70,7 @@ describe("mcg", () => {
 
 	it("should generate the test files in a custom folder, if a custom test folder is passed", async () => {
 		const customTestFolder = "spec";
-		const command = `./bin/mcg Post --testFolder ${customTestFolder}`;
+		const command = `./dist/bin/mcg Post --testFolder ${customTestFolder}`;
 		const { stdout } = await exec(command);
 		const timestamp = getTimestamp();
 		const filesToCheck = [
@@ -91,7 +98,7 @@ describe("mcg", () => {
 	it("should generate the files in a custom main directory, if a custom main directory is passed", async () => {
 		const mainDir = path.join(process.cwd(), "sixthApp");
 		await mkdir(mainDir);
-		const command = `./bin/mcg Post --mainDir ${mainDir}`;
+		const command = `./dist/bin/mcg Post --mainDir ${mainDir}`;
 		const { stdout } = await exec(command);
 		const timestamp = getTimestamp();
 		const filesToCheck = [
@@ -111,10 +118,10 @@ describe("mcg", () => {
 	});
 
 	it("should read any custom testDir and mainDir settings from a config file, if a config file is present", async () => {
-		const configFilePath = path.join(process.cwd(), "mcg.config.js");
+		const configFilePath = path.join(process.cwd(), "mcg.config.cjs");
 		const configFileData = `module.exports = { testFolder: 'spec' };`;
 		await writeFile(configFilePath, configFileData);
-		const command = "./bin/mcg Post";
+		const command = "./dist/bin/mcg Post";
 		const { stdout } = await exec(command);
 		const timestamp = getTimestamp();
 		const filesToCheck = [
@@ -145,7 +152,7 @@ describe("mcg", () => {
 			const mainDir = path.join(process.cwd(), "seventhApp");
 			await mkdir(mainDir);
 			const tableName = "blog_posts";
-			const command = `./bin/mcg Post --mainDir ${mainDir} --tableName ${tableName}`;
+			const command = `./dist/bin/mcg Post --mainDir ${mainDir} --tableName ${tableName}`;
 			const { stdout } = await exec(command);
 			const timestamp = getTimestamp();
 			const filesToCheck = [

@@ -1,13 +1,14 @@
-const path = require("path");
+import * as path from "node:path";
+import { describe, expect, it } from "vitest";
+import { readFile } from "../../../src/lib/helpers";
+import testModelFileTemplate from "../../../src/lib/templates/testModelFileTemplate";
+
 const testModelFileExampleFilePath = path.join(
 	process.cwd(),
 	"test",
 	"data",
 	"testModelFileExample.test.js",
 );
-const testModelFileTemplate = require("../../../lib/templates/testModelFileTemplate");
-const { readFile } = require("../../../lib/helpers");
-const assert = require("assert");
 
 describe("testModelFileTemplate", () => {
 	it("should return the file content for the test model file", async () => {
@@ -15,6 +16,6 @@ describe("testModelFileTemplate", () => {
 		const exampleContent = await readFile(testModelFileExampleFilePath, {
 			encoding: "utf8",
 		});
-		assert.equal(generatedContent, exampleContent);
+		expect(generatedContent).toBe(exampleContent);
 	});
 });

@@ -1,4 +1,4 @@
-const template = (tableName) => {
+const migrationFileTemplate = (tableName: string): string => {
 	return `// Migration for the ${tableName} table
 const tableName = "${tableName}";
 
@@ -17,4 +17,4 @@ exports.down = (knex) => {
 `;
 };
 
-module.exports = template;
+export default migrationFileTemplate;

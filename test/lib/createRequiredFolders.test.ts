@@ -1,14 +1,14 @@
-const path = require("path");
-const assert = require("assert");
-const {
+import * as path from "node:path";
+import { afterAll, beforeAll, describe, expect, it } from "vitest";
+import {
 	createFolderUnlessExists,
 	createRequiredFolders,
-} = require("../../lib/createRequiredFolders");
-const { stat, rmdir, mkdir } = require("../../lib/helpers");
+} from "../../src/lib/createRequiredFolders";
+import { mkdir, rmdir, stat } from "../../src/lib/helpers";
 
-const checkFolderExists = async (folders) => {
+const checkFolderExists = async (folders: string[]): Promise<void> => {
 	const folderCheck = await stat(path.join(...folders));
-	assert(folderCheck.isDirectory());
+	expect(folderCheck.isDirectory()).toBe(true);
 };
 
 describe("createRequiredFolders", () => {
@@ -16,17 +16,15 @@ describe("createRequiredFolders", () => {
 		const rootDir = path.join(process.cwd(), "thirdTestApp");
 		const testFolder = "test";
 
-		before(async () => {
+		beforeAll(async () => {
 			await mkdir(rootDir);
-			await createRequiredFolders({
+			return await createRequiredFolders({
 				rootDir,
 				testFolder,
 			});
 		});
 
-		after(async () => {
-			await rmdir(rootDir, { recursive: true });
-		});
+		afterAll(async () => await rmdir(rootDir, { recursive: true }));
 
 		it("should create a models folder", async () => {
 			return await checkFolderExists([rootDir, "models"]);
@@ -45,8 +43,8 @@ describe("createRequiredFolders", () => {
 		});
 
 		it("should create the folders in a custom root directory if one is specified", async () => {
-			assert.notEqual(process.cwd(), rootDir);
-			assert(rootDir.match("thirdTestApp") !== null);
+			expect(process.cwd()).not.toBe(rootDir);
+			expect(rootDir.match("thirdTestApp")).not.toBe(null);
 		});
 		it("should create the test-related folders with a custom test folder name if specified", async () => {
 			const anotherRootDir = path.join(process.cwd(), "fourthTestApp");
@@ -66,11 +64,11 @@ describe("createRequiredFolders", () => {
 			const folderPathToCreate = path.join(process.cwd(), "serpentine");
 			try {
 				await stat(folderPathToCreate);
-				assert(false, "This line should not be reached");
+				expect(false, "This line should not be reached");
 			} catch {
 				await createFolderUnlessExists(folderPathToCreate);
 				await checkFolderExists([folderPathToCreate]);
-				await rmdir(folderPathToCreate);
+				await rmdir(folderPathToCreate, { recursive: true });
 			}
 		});
 		it("should return folder if the folder exists already", async () => {
@@ -78,7 +76,7 @@ describe("createRequiredFolders", () => {
 			await mkdir(folderPathToNotCreate);
 			await checkFolderExists([folderPathToNotCreate]);
 			await createFolderUnlessExists(folderPathToNotCreate);
-			await rmdir(folderPathToNotCreate);
+			await rmdir(folderPathToNotCreate, { recursive: true });
 		});
 	});
 });

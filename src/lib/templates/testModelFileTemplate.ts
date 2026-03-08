@@ -1,7 +1,7 @@
-const to = require("to-case");
-const path = require("path");
+import path from "node:path";
+import to from "to-case";
 
-module.exports = (modelName) => {
+const testModelFileTemplate = (modelName: string): string => {
 	const modelFileName = to.pascal(modelName);
 	const modelFilePath = path.join("..", "..", "models", modelFileName);
 
@@ -14,3 +14,5 @@ describe("${modelFileName}", () => {
 });
 `;
 };
+
+export default testModelFileTemplate;
