@@ -2,6 +2,57 @@
 
 ### 0.0.18 - Wednesday 11th March, 2026
 
+- Updated the TODO list
+- Updated changelog
+- Merge pull request #206 from anephenix/feature/use-vitest-and-typescript
+- Adjusted the script to create the needed bin/mcg file in the dist folder post build
+- Updated the workflows
+- Updated cover npm script and removed unneeded dependencies
+- Small tweak for the published build
+- Some changes to get the dist bin built
+- Fixes
+- Some changes to get the dist bin built
+- WIP
+- Merge pull request #205 from anephenix/dependabot/npm_and_yarn/biomejs/biome-2.4.6
+- Bump @biomejs/biome from 2.4.5 to 2.4.6
+- Merge pull request #204 from anephenix/dependabot/npm_and_yarn/biomejs/biome-2.4.5
+- Bump @biomejs/biome from 2.4.4 to 2.4.5
+- Replaced ESLint and Prettier with biome
+- Updated dependencies
+- Merge pull request #201 from anephenix/dependabot/npm_and_yarn/multi-770cfcd984
+- Bump minimatch
+- Merge pull request #200 from anephenix/dependabot/npm_and_yarn/nyc-18.0.0
+- Bump nyc from 17.1.0 to 18.0.0
+- Updated dependencies
+- Merge pull request #194 from anephenix/dependabot/npm_and_yarn/eslint-plugin-jest-29.13.0
+- Bump eslint-plugin-jest from 29.12.2 to 29.13.0
+- Merge pull request #190 from anephenix/dependabot/npm_and_yarn/babel/preset-env-7.29.0
+- Bump @babel/preset-env from 7.28.6 to 7.29.0
+- Merge pull request #188 from anephenix/dependabot/npm_and_yarn/globals-17.3.0
+- Merge pull request #191 from anephenix/dependabot/npm_and_yarn/eslint-plugin-jest-29.12.2
+- Bump eslint-plugin-jest from 29.12.1 to 29.12.2
+- Merge pull request #189 from anephenix/dependabot/npm_and_yarn/commander-14.0.3
+- Bump commander from 14.0.2 to 14.0.3
+- Bump globals from 17.2.0 to 17.3.0
+- Merge pull request #187 from anephenix/dependabot/npm_and_yarn/globals-17.2.0
+- Bump globals from 17.1.0 to 17.2.0
+- Merge pull request #186 from anephenix/dependabot/npm_and_yarn/globals-17.1.0
+- Merge pull request #185 from anephenix/dependabot/npm_and_yarn/prettier-3.8.1
+- Merge pull request #184 from anephenix/dependabot/npm_and_yarn/publint-0.3.17
+- Bump globals from 17.0.0 to 17.1.0
+- Bump prettier from 3.8.0 to 3.8.1
+- Bump publint from 0.3.16 to 0.3.17
+- Merge pull request #183 from anephenix/dependabot/npm_and_yarn/prettier-3.8.0
+- Bump prettier from 3.7.4 to 3.8.0
+- Merge pull request #182 from anephenix/dependabot/npm_and_yarn/babel/preset-env-7.28.6
+- Merge pull request #181 from anephenix/dependabot/npm_and_yarn/babel/eslint-parser-7.28.6
+- Bump @babel/preset-env from 7.28.5 to 7.28.6
+- Bump @babel/eslint-parser from 7.28.5 to 7.28.6
+- Merge pull request #180 from anephenix/dependabot/npm_and_yarn/eslint-plugin-jest-29.12.1
+- Bump eslint-plugin-jest from 29.12.0 to 29.12.1
+
+### 0.0.18 - Wednesday 11th March, 2026
+
 - Merge pull request #206 from anephenix/feature/use-vitest-and-typescript
 - Adjusted the script to create the needed bin/mcg file in the dist folder post build
 - Updated the workflows
