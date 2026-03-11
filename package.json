@@ -1,6 +1,6 @@
 {
 	"name": "@anephenix/mcg",
-	"version": "0.0.17",
+	"version": "0.0.18",
 	"description": "Model Component Generator for Objection.js",
 	"type": "module",
 	"exports": {
