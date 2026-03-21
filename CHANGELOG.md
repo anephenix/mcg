@@ -1,5 +1,22 @@
 # CHANGELOG
 
+### 0.0.19 - Saturday 21st March, 2026
+
+- Updated dependencies and some linting fixes
+- Merge pull request #212 from anephenix/dependabot/npm_and_yarn/biomejs/biome-2.4.8
+- Bump @biomejs/biome from 2.4.7 to 2.4.8
+- Merge pull request #211 from anephenix/dependabot/npm_and_yarn/biomejs/biome-2.4.7
+- Bump @biomejs/biome from 2.4.6 to 2.4.7
+- Merge pull request #210 from anephenix/dependabot/npm_and_yarn/vitest/coverage-v8-4.1.0
+- Bump @vitest/coverage-v8 from 4.0.18 to 4.1.0
+- Merge pull request #208 from anephenix/dependabot/npm_and_yarn/types/node-25.5.0
+- Bump @types/node from 25.4.0 to 25.5.0
+- Merge pull request #209 from anephenix/dependabot/npm_and_yarn/vitest-4.1.0
+- Bump vitest from 4.0.18 to 4.1.0
+- Merge branch 'master' of github.com:anephenix/mcg
+- Merge pull request #207 from anephenix/dependabot/npm_and_yarn/types/node-25.4.0
+- Bump @types/node from 25.3.5 to 25.4.0
+
 ### 0.0.18 - Wednesday 11th March, 2026
 
 - Updated the TODO list
