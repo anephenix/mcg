@@ -4,8 +4,8 @@ import testModelFileTemplate from "./testModelFileTemplate.js";
 import testSeedDataFileTemplate from "./testSeedDataFileTemplate.js";
 
 export {
-	modelFileTemplate,
 	migrationFileTemplate,
+	modelFileTemplate,
 	testModelFileTemplate,
 	testSeedDataFileTemplate,
 };
