@@ -1,5 +1,29 @@
 # CHANGELOG
 
+### 0.0.20 - Wednesday 8th April, 2026
+
+- Updated biome schema
+- Updated dependencies
+- Merge pull request #223 from anephenix/dependabot/npm_and_yarn/vite-8.0.5
+- Bump vite from 8.0.3 to 8.0.5
+- Merge pull request #222 from anephenix/dependabot/npm_and_yarn/types/node-25.5.2
+- Bump @types/node from 25.5.1 to 25.5.2
+- Merge pull request #221 from anephenix/dependabot/npm_and_yarn/types/node-25.5.1
+- Bump @types/node from 25.5.0 to 25.5.1
+- Merge pull request #220 from anephenix/dependabot/npm_and_yarn/biomejs/biome-2.4.10
+- Bump @biomejs/biome from 2.4.9 to 2.4.10
+- Merge pull request #219 from anephenix/dependabot/npm_and_yarn/vitest/coverage-v8-4.1.2
+- Bump @vitest/coverage-v8 from 4.1.1 to 4.1.2
+- Merge pull request #217 from anephenix/dependabot/npm_and_yarn/biomejs/biome-2.4.9
+- Bump @biomejs/biome from 2.4.8 to 2.4.9
+- Merge pull request #216 from anephenix/dependabot/npm_and_yarn/picomatch-4.0.4
+- Bump picomatch from 4.0.3 to 4.0.4
+- Merge pull request #214 from anephenix/dependabot/npm_and_yarn/typescript-6.0.2
+- Added types:node setting to tsconfig.json file and some formatting fixes
+- Merge pull request #213 from anephenix/dependabot/npm_and_yarn/vitest/coverage-v8-4.1.1
+- Bump typescript from 5.9.3 to 6.0.2
+- Bump @vitest/coverage-v8 from 4.1.0 to 4.1.1
+
 ### 0.0.19 - Saturday 21st March, 2026
 
 - Updated dependencies and some linting fixes
