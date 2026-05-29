@@ -70,7 +70,7 @@
 		"vitest": "^4.0.18"
 	},
 	"dependencies": {
-		"commander": "^14.0.0",
+		"commander": "^15.0.0",
 		"pluralize": "^8.0.0",
 		"to-case": "^2.0.0"
 	},
