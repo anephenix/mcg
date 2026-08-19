@@ -30,8 +30,15 @@ const mainAction = async (modelName: string) => {
 	const testFolder = options.testFolder || configFileOptions.testFolder;
 	const mainDir = options.mainDir || configFileOptions.mainDir || process.cwd();
 	const tableName = options.tableName || configFileOptions.tableName;
+	const attributes = options.attributes || configFileOptions.attributes;
 
-	const filesCreated = await main(modelName, mainDir, testFolder, tableName);
+	const filesCreated = await main(
+		modelName,
+		mainDir,
+		testFolder,
+		tableName,
+		attributes,
+	);
 	console.log("Created files:");
 	filesCreated.forEach((fc: string) => {
 		console.log(fc);

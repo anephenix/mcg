@@ -1,5 +1,6 @@
 import path from "node:path";
 import to from "to-case";
+import type { Attribute } from "./attributes.js";
 import { writeFile } from "./helpers.js";
 import {
 	migrationFileTemplate,
@@ -27,18 +28,21 @@ export interface ModelFileOptions {
 	modelName: string;
 	rootDir: string;
 	tableName: string;
+	attributes?: Attribute[];
 }
 
 export const createModelFile = async ({
 	modelName,
 	rootDir,
 	tableName,
+	attributes = [],
 }: ModelFileOptions): Promise<string> => {
 	const fileName = `${to.pascal(modelName)}.js`;
 	const filePath = path.join(rootDir, "models", fileName);
 	const fileContent = modelFileTemplate({
 		modelName: to.pascal(modelName),
 		tableName,
+		attributes,
 	});
 	await writeFile(filePath, fileContent, { encoding: "utf8" });
 	return filePath;
@@ -47,15 +51,17 @@ export const createModelFile = async ({
 export interface MigrationFileOptions {
 	tableName: string;
 	rootDir: string;
+	attributes?: Attribute[];
 }
 
 export const createMigrationFile = async ({
 	tableName,
 	rootDir,
+	attributes = [],
 }: MigrationFileOptions): Promise<string> => {
 	const fileName = `${getTimestamp()}_create_${tableName}_table.js`;
 	const filePath = path.join(rootDir, "migrations", fileName);
-	const fileContent = migrationFileTemplate(tableName);
+	const fileContent = migrationFileTemplate(tableName, attributes);
 	await writeFile(filePath, fileContent, { encoding: "utf8" });
 	return filePath;
 };
@@ -82,16 +88,18 @@ export interface TestSeedDataFileOptions {
 	modelName: string;
 	rootDir: string;
 	testFolder: string;
+	attributes?: Attribute[];
 }
 
 export const createTestSeedDataFile = async ({
 	modelName,
 	rootDir,
 	testFolder,
+	attributes = [],
 }: TestSeedDataFileOptions): Promise<string> => {
 	const fileName = `${to.camel(modelName)}Data.test.js`;
 	const filePath = path.join(rootDir, testFolder, "data", fileName);
-	const fileContent = testSeedDataFileTemplate(modelName);
+	const fileContent = testSeedDataFileTemplate(modelName, attributes);
 	await writeFile(filePath, fileContent, { encoding: "utf8" });
 	return filePath;
 };
@@ -101,6 +109,7 @@ export interface CreateRequiredFilesOptions {
 	rootDir: string;
 	testFolder: string;
 	tableName: string;
+	attributes?: Attribute[];
 }
 
 export const createRequiredFiles = async ({
@@ -108,12 +117,13 @@ export const createRequiredFiles = async ({
 	rootDir,
 	testFolder,
 	tableName,
+	attributes = [],
 }: CreateRequiredFilesOptions): Promise<string[]> => {
 	const files = await Promise.all([
-		createModelFile({ modelName, rootDir, tableName }),
-		createMigrationFile({ tableName, rootDir }),
+		createModelFile({ modelName, rootDir, tableName, attributes }),
+		createMigrationFile({ tableName, rootDir, attributes }),
 		createTestModelFile({ modelName, rootDir, testFolder }),
-		createTestSeedDataFile({ modelName, rootDir, testFolder }),
+		createTestSeedDataFile({ modelName, rootDir, testFolder, attributes }),
 	]);
 	return files;
 };
