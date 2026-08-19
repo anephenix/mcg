@@ -12,6 +12,8 @@ import {
 	writeFile,
 } from "../../src/lib/helpers";
 
+const shellEscape = (value: string): string => `'${value.replace(/'/g, `'\"'\"'`)}'`;
+
 interface CompareExpectedAndActualFilesOptions {
 	rootDir: string;
 	expectedFilePathFolders: string[];
@@ -152,7 +154,7 @@ describe("mcg", () => {
 			const mainDir = path.join(process.cwd(), "seventhApp");
 			await mkdir(mainDir);
 			const tableName = "blog_posts";
-			const command = `./dist/bin/mcg Post --mainDir ${mainDir} --tableName ${tableName}`;
+			const command = `./dist/bin/mcg Post --mainDir ${shellEscape(mainDir)} --tableName ${shellEscape(tableName)}`;
 			const { stdout } = await exec(command);
 			const timestamp = getTimestamp();
 			const filesToCheck = [
@@ -194,7 +196,7 @@ describe("mcg", () => {
 		it("should generate a migration file, model file and test seed data file that include the given attributes", async () => {
 			const mainDir = path.join(process.cwd(), "eighthApp");
 			await mkdir(mainDir);
-			const command = `./dist/bin/mcg Post --mainDir ${mainDir} --attributes title:string description:text published:boolean`;
+			const command = `./dist/bin/mcg Post --mainDir ${shellEscape(mainDir)} --attributes title:string description:text published:boolean`;
 			const { stdout } = await exec(command);
 			const timestamp = getTimestamp();
 			const filesToCheck = [
