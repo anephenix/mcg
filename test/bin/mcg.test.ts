@@ -243,8 +243,9 @@ describe("mcg", () => {
 		it("should error out when an attribute type is not supported", async () => {
 			const mainDir = path.join(process.cwd(), "tenthApp");
 			await mkdir(mainDir);
-			const command = `./dist/bin/mcg Post --mainDir ${mainDir} --attributes title:unknownType`;
-			await assert.rejects(exec(command));
+			const cmd = "./dist/bin/mcg";
+			const args = ["Post", "--mainDir", mainDir, "--attributes", "title:unknownType"];
+			await assert.rejects(exec(cmd, args));
 			await rmdir(mainDir, { recursive: true });
 		});
 	});
