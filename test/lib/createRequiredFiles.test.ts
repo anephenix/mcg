@@ -1,5 +1,6 @@
 import * as path from "node:path";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
+import { parseAttributes } from "../../src/lib/attributes";
 import {
 	createMigrationFile,
 	createModelFile,
@@ -104,6 +105,20 @@ describe("createRequiredFiles", () => {
 				exampleFileName: "modelFileExample.test.js",
 			});
 		});
+
+		it("should include jsonSchema properties when attributes are passed", async () => {
+			const attributes = parseAttributes([
+				"title:string",
+				"description:text",
+				"published:boolean",
+			]);
+			await createFolderUnlessExists(path.join(rootDir, "models"));
+			await createModelFile({ modelName, rootDir, tableName, attributes });
+			return await compareExpectedAndActualFiles({
+				expectedFilePathFolders: ["models", "Post.js"],
+				exampleFileName: "modelFileWithAttributesExample.test.js",
+			});
+		});
 	});
 
 	describe("#createMigrationFile", () => {
@@ -117,6 +132,24 @@ describe("createRequiredFiles", () => {
 					`${timestamp}_create_posts_table.js`,
 				],
 				exampleFileName: "migrationFileExample.test.js",
+			});
+		});
+
+		it("should include table columns when attributes are passed", async () => {
+			const attributes = parseAttributes([
+				"title:string",
+				"description:text",
+				"published:boolean",
+			]);
+			await createFolderUnlessExists(path.join(rootDir, "migrations"));
+			await createMigrationFile({ tableName, rootDir, attributes });
+			const timestamp = getTimestamp();
+			return await compareExpectedAndActualFiles({
+				expectedFilePathFolders: [
+					"migrations",
+					`${timestamp}_create_posts_table.js`,
+				],
+				exampleFileName: "migrationFileWithAttributesExample.test.js",
 			});
 		});
 	});

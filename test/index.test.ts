@@ -2,6 +2,7 @@ import * as path from "node:path";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 // NOTE - start her
 import mcg from "../dist/index";
+import { parseAttributes } from "../src/lib/attributes";
 import { getTimestamp } from "../src/lib/createRequiredFiles";
 import { mkdir, readFile, rmdir, stat } from "../src/lib/helpers";
 import {
@@ -116,6 +117,68 @@ describe("main", () => {
 		return await fileAndContentCheckWrapper({
 			filePathElements: ["test", "data", "postData.test.js"],
 			expectedContent: testSeedDataFileTemplate("Post"),
+		});
+	});
+
+	describe("when attributes are passed", () => {
+		const attributesRootDir = path.join(process.cwd(), "attributesTestApp");
+		const rawAttributes = [
+			"title:string",
+			"description:text",
+			"published:boolean",
+		];
+
+		beforeAll(async () => {
+			await mkdir(attributesRootDir);
+			return await mcg(
+				"Post",
+				attributesRootDir,
+				"test",
+				undefined,
+				rawAttributes,
+			);
+		});
+
+		afterAll(async () => await rmdir(attributesRootDir, { recursive: true }));
+
+		it("should include the attributes in the model file's jsonSchema", async () => {
+			const attributes = parseAttributes(rawAttributes);
+			const filePath = path.join(attributesRootDir, "models", "Post.js");
+			await checkFileExistsAndContentIsExpected({
+				filePath,
+				expectedContent: modelFileTemplate({
+					modelName: "Post",
+					tableName: "posts",
+					attributes,
+				}),
+			});
+		});
+
+		it("should include the attributes as columns in the migration file", async () => {
+			const attributes = parseAttributes(rawAttributes);
+			const filePath = path.join(
+				attributesRootDir,
+				"migrations",
+				`${getTimestamp()}_create_posts_table.js`,
+			);
+			await checkFileExistsAndContentIsExpected({
+				filePath,
+				expectedContent: migrationFileTemplate("posts", attributes),
+			});
+		});
+
+		it("should include sample values for the attributes in the test seed data file", async () => {
+			const attributes = parseAttributes(rawAttributes);
+			const filePath = path.join(
+				attributesRootDir,
+				"test",
+				"data",
+				"postData.test.js",
+			);
+			await checkFileExistsAndContentIsExpected({
+				filePath,
+				expectedContent: testSeedDataFileTemplate("Post", attributes),
+			});
 		});
 	});
 });

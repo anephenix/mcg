@@ -1,32 +1,10 @@
-import type { Attribute } from "../attributes.js";
-
-export interface ModelFileTemplateArgs {
-	modelName: string;
-	tableName: string;
-	attributes?: Attribute[];
-}
-
-const modelFileTemplate = ({
-	modelName,
-	tableName,
-	attributes = [],
-}: ModelFileTemplateArgs): string => {
-	const attributeProperties = attributes
-		.map((attribute) => {
-			const format = attribute.jsonSchemaFormat
-				? `, format: "${attribute.jsonSchemaFormat}"`
-				: "";
-			return `\t\t\t\t${attribute.name}: { type: "${attribute.jsonSchemaType}"${format} },\n`;
-		})
-		.join("");
-
-	return `// Dependencies
+// Dependencies
 const { Model } = require("objection");
 
-class ${modelName} extends Model {
+class Post extends Model {
 	/* Always define the table in the db that the model refers to */
 	static get tableName() {
-		return "${tableName}";
+		return "posts";
 	}
 
 	// Assume timestamps are always present
@@ -51,7 +29,10 @@ class ${modelName} extends Model {
 			required: [],
 			properties: {
 				id: { type: "string", readOnly: true },
-${attributeProperties}				created_at: {
+				title: { type: "string" },
+				description: { type: "string" },
+				published: { type: "boolean" },
+				created_at: {
 					type: "string",
 					format: "date-time",
 					readOnly: true,
@@ -62,8 +43,4 @@ ${attributeProperties}				created_at: {
 	}
 }
 
-module.exports = ${modelName};
-`;
-};
-
-export default modelFileTemplate;
+module.exports = Post;

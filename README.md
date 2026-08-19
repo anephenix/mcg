@@ -43,6 +43,15 @@ You can pass the following optional arguments:
 -   --testFolder - specify a custom folder name to put the test model file and seed data file in (e.g. test, spec)
 -   --mainDir - specify a custom folder path to generate all of the files in, in case your app's code is not in the current working directory
 -   --tableName - specify a custom database table name for the model and migration file (.e.g. blog_posts)
+-   --attributes - specify the fields to add to the model, migration and test seed data file, as a space-separated list of name:type pairs (e.g. title:string description:text published:boolean)
+
+The supported attribute types are: `string`, `text`, `integer`, `float`, `boolean`, `date`, `datetime` and `json`. For example:
+
+```shell
+npx mcg Post --attributes title:string description:text published:boolean
+```
+
+This will add `title`, `description` and `published` columns to the migration file, matching properties to the model's jsonSchema, and sample values for each of them in the test seed data file.
 
 There is also the option of setting these optional arguments in a mcg.config.js file that looks like this:
 
@@ -62,7 +71,7 @@ const mcg = require('@anephenix/mcg');
 })();
 ```
 
-The mainDir and testFolder are optional 2nd and 3rd arguments to that command:
+The mainDir and testFolder are optional 2nd and 3rd arguments to that command, and tableName and attributes are optional 4th and 5th arguments:
 
 ```javascript
 const path = require('path');
@@ -70,7 +79,9 @@ const mcg = require('@anephenix/mcg');
 (async () => {
 	const mainDir = path.join(process.cwd(), 'app');
 	const testFolder = 'spec';
-	await mcg('Post', mainDir, testFolder);
+	const tableName = undefined;
+	const attributes = ['title:string', 'description:text', 'published:boolean'];
+	await mcg('Post', mainDir, testFolder, tableName, attributes);
 })();
 ```
 

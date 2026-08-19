@@ -12,6 +12,8 @@ import {
 	writeFile,
 } from "../../src/lib/helpers";
 
+const shellEscape = (value: string): string => `'${value.replace(/'/g, `'\"'\"'`)}'`;
+
 interface CompareExpectedAndActualFilesOptions {
 	rootDir: string;
 	expectedFilePathFolders: string[];
@@ -152,7 +154,7 @@ describe("mcg", () => {
 			const mainDir = path.join(process.cwd(), "seventhApp");
 			await mkdir(mainDir);
 			const tableName = "blog_posts";
-			const command = `./dist/bin/mcg Post --mainDir ${mainDir} --tableName ${tableName}`;
+			const command = `./dist/bin/mcg Post --mainDir ${shellEscape(mainDir)} --tableName ${shellEscape(tableName)}`;
 			const { stdout } = await exec(command);
 			const timestamp = getTimestamp();
 			const filesToCheck = [
@@ -191,15 +193,60 @@ describe("mcg", () => {
 	});
 
 	describe("with attributes passed", () => {
-		it(
-			"should generate a migration file that specifies what fields to put in the model table",
-		);
-		it("should generate a model file with a jsonSchema property");
-		it("should define properties for the test seed data file");
-		it(
-			"should define things to test in the model test file, such as validations",
-		);
+		it("should generate a migration file, model file and test seed data file that include the given attributes", async () => {
+			const mainDir = path.join(process.cwd(), "eighthApp");
+			await mkdir(mainDir);
+			const command = `./dist/bin/mcg Post --mainDir ${shellEscape(mainDir)} --attributes title:string description:text published:boolean`;
+			const { stdout } = await exec(command);
+			const timestamp = getTimestamp();
+			const filesToCheck = [
+				"models/Post.js",
+				`migrations/${timestamp}_create_posts_table.js`,
+				"test/data/postData.test.js",
+			];
+			for await (const fileToCheck of filesToCheck) {
+				const filePath = path.join(mainDir, fileToCheck);
+				const fileCheck = await stat(filePath);
+				assert(fileCheck.isFile());
+				assert(stdout.match(filePath) !== null);
+			}
+			await compareExpectedAndActualFiles({
+				rootDir: mainDir,
+				expectedFilePathFolders: ["models", "Post.js"],
+				exampleFileName: "modelFileWithAttributesExample.test.js",
+			});
+			await compareExpectedAndActualFiles({
+				rootDir: mainDir,
+				expectedFilePathFolders: [
+					"migrations",
+					`${timestamp}_create_posts_table.js`,
+				],
+				exampleFileName: "migrationFileWithAttributesExample.test.js",
+			});
+			await compareExpectedAndActualFiles({
+				rootDir: mainDir,
+				expectedFilePathFolders: ["test", "data", "postData.test.js"],
+				exampleFileName: "testSeedDataFileWithAttributesExample.test.js",
+			});
+			await rmdir(mainDir, { recursive: true });
+		});
+
+		it("should error out when an attribute is not in the name:type format", async () => {
+			const mainDir = path.join(process.cwd(), "ninthApp");
+			await mkdir(mainDir);
+			const cmd = "./dist/bin/mcg";
+			const args = ["Post", "--mainDir", mainDir, "--attributes", "title"];
+			await assert.rejects(exec(cmd, args));
+			await rmdir(mainDir, { recursive: true });
+		});
+
+		it("should error out when an attribute type is not supported", async () => {
+			const mainDir = path.join(process.cwd(), "tenthApp");
+			await mkdir(mainDir);
+			const cmd = "./dist/bin/mcg";
+			const args = ["Post", "--mainDir", mainDir, "--attributes", "title:unknownType"];
+			await assert.rejects(exec(cmd, args));
+			await rmdir(mainDir, { recursive: true });
+		});
 	});
-	// Q - how to pass attributes in a way that can support jsonSchema, migration, test seed and test code?
-	// T - I wonder if official jsonSchema JSON would be possible - would be a great way to assemble an API from a schema
 });
