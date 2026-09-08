@@ -12,7 +12,8 @@ import {
 	writeFile,
 } from "../../src/lib/helpers";
 
-const shellEscape = (value: string): string => `'${value.replace(/'/g, `'\"'\"'`)}'`;
+const shellEscape = (value: string): string =>
+	`'${value.replace(/'/g, `'"'"'`)}'`;
 
 interface CompareExpectedAndActualFilesOptions {
 	rootDir: string;
@@ -244,7 +245,13 @@ describe("mcg", () => {
 			const mainDir = path.join(process.cwd(), "tenthApp");
 			await mkdir(mainDir);
 			const cmd = "./dist/bin/mcg";
-			const args = ["Post", "--mainDir", mainDir, "--attributes", "title:unknownType"];
+			const args = [
+				"Post",
+				"--mainDir",
+				mainDir,
+				"--attributes",
+				"title:unknownType",
+			];
 			await assert.rejects(exec(cmd, args));
 			await rmdir(mainDir, { recursive: true });
 		});
