@@ -1,5 +1,9 @@
 # CHANGELOG
 
+### 0.0.22 - Sunday 27th September, 2026
+
+- Added a missing step the publish GitHub workflow
+
 ### 0.0.21 - Sunday 27th September, 2026
 
 - Updated biome schema version
