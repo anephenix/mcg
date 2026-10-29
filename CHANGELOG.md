@@ -663,7 +663,7 @@
 - A hack to resolve a missing file issue for cc-test-reporter
 - Removed a leftover console.log statement
 - Updated the main pipeline that runs after a push
-- Moved the __tests__ folder to test instead
+- Moved the **tests** folder to test instead
 - Replaced jest with mocha and nyc
 - More dependency updates
 - Updates

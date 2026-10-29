@@ -57,31 +57,31 @@ There is also the option of setting these optional arguments in a mcg.config.js 
 
 ```javascript
 module.exports = {
-	testFolder: 'spec',
-	mainDir: 'app',
+	testFolder: "spec",
+	mainDir: "app",
 };
 ```
 
 You can also use MCG programmatically, like this:
 
 ```javascript
-const mcg = require('@anephenix/mcg');
+const mcg = require("@anephenix/mcg");
 (async () => {
-	await mcg('Post');
+	await mcg("Post");
 })();
 ```
 
 The mainDir and testFolder are optional 2nd and 3rd arguments to that command, and tableName and attributes are optional 4th and 5th arguments:
 
 ```javascript
-const path = require('path');
-const mcg = require('@anephenix/mcg');
+const path = require("path");
+const mcg = require("@anephenix/mcg");
 (async () => {
-	const mainDir = path.join(process.cwd(), 'app');
-	const testFolder = 'spec';
+	const mainDir = path.join(process.cwd(), "app");
+	const testFolder = "spec";
 	const tableName = undefined;
-	const attributes = ['title:string', 'description:text', 'published:boolean'];
-	await mcg('Post', mainDir, testFolder, tableName, attributes);
+	const attributes = ["title:string", "description:text", "published:boolean"];
+	await mcg("Post", mainDir, testFolder, tableName, attributes);
 })();
 ```
 
